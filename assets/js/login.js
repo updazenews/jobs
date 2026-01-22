@@ -14,8 +14,19 @@ form.addEventListener('submit', async (e) => {
   try {
     const response = await fetch('https://api-updaze.yzz.me/api/jobs/login.php', {
       method: 'POST',
-      body: new URLSearchParams(formData)
-    });
+      headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        email: email,
+        password: password
+    })
+     // body: new URLSearchParams(formData)
+    }
+  .then(res => res.json())
+  .then(data => {
+    console.log(data);
+}));
 
     const result = await response.json();
 
