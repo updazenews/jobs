@@ -12,7 +12,7 @@ form.addEventListener('submit', async (e) => {
   const formData = new FormData(form);
 
   try {
-    const response = await fetch('https://api.updaze.co.za/api/job/login.php', {
+    const response = await fetch('https://api-updaze.yzz.me/api/jobs/login.php', {
       method: 'POST',
       body: new URLSearchParams(formData)
     });
