@@ -1,4 +1,3 @@
-<script>
     const jobs = [
     {position: "IT Support Technician", company: "Updaze Tech", closing: "30 Sep 2026" },
     {position: "Junior Web Developer", company: "Digital Labs", closing: "15 Oct 2026" }
@@ -16,4 +15,11 @@
 </tr>
 `).join("");
 }
-</script>
+
+fetch("https://jobs.updaze.co.za/api/jobs/list.php")
+  .then(res => res.json())
+  .then(res => {
+    res.data.forEach(job => {
+      // render job card
+    });
+  });
