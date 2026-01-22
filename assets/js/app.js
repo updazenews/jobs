@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const jobsContainer = document.getElementById("jobsContainer");
 
     // API endpoint
-    const API_URL = "http://api-updaze.yzz.me/api/jobs/list.php";
+    const API_URL = "https://api-updaze.yzz.me/api/jobs/list.php";
 
     // Fetch jobs
     fetch(API_URL)
