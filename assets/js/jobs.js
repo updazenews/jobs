@@ -21,3 +21,5 @@ const snapshot = await getDocs(q);
 snapshot.forEach(doc => {
   console.log(doc.id, doc.data());
 });
+// ✅ EXPORT db
+export const db = getFirestore(app);
