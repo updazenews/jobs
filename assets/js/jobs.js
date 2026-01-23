@@ -3,9 +3,12 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebas
 import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
+  apiKey: "AIzaSyCZSyty8XgrkBycReUHXzZZJgvajJMatJQ",
+  authDomain: "updaze-jobs.firebaseapp.com",
+  projectId: "updaze-jobs",
+  messagingSenderId: "208744900105",
+  appId: "1:208744900105:web:84456f914b2ae57ee7fad8",
+  measurementId: "G-WM1KXZD6DL"
 };
 
 const app = initializeApp(firebaseConfig);
