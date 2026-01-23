@@ -1,4 +1,3 @@
-<script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
@@ -22,4 +21,3 @@ const snapshot = await getDocs(q);
 snapshot.forEach(doc => {
   console.log(doc.id, doc.data());
 });
-</script>
