@@ -1,5 +1,5 @@
 import { signInWithEmailAndPassword } 
-from "admin/node_modules/firebase-admin";
+from "/admin/node_modules/firebase-admin";
 import { auth } from "/assets/js/jobs.js";
 
 const tbUsers = document.getElementById('tbUsers');
