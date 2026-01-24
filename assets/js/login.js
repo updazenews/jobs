@@ -16,7 +16,7 @@ form.addEventListener('submit', async (e) => {
   loginBtn.disabled = true;
   loginBtn.textContent = 'Logging in...';
 
-  //const formData = new FormData(form);
+  const formData = new FormData(form);
   const email = emailB.value;
   const password = passwordB.value;
 
