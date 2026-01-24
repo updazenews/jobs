@@ -3,7 +3,9 @@ from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 import { auth } from "./jobs.js";
 
-const form = document.getElementById('loginForm');
+//const form = document.getElementById('loginForm');
+const emailB = document.getElementById('usernameBox');
+const passwordB = document.getElementById('passwordBox');
 const errorBox = document.getElementById('error');
 const loginBtn = document.getElementById('loginBtn');
 
@@ -14,9 +16,9 @@ form.addEventListener('submit', async (e) => {
   loginBtn.disabled = true;
   loginBtn.textContent = 'Logging in...';
 
-  const formData = new FormData(form);
-  const email = formData.get('email');
-  const password = formData.get('password');
+  //const formData = new FormData(form);
+  const email = emailB.value;
+  const password = passwordB.value;
 
   try {
     const userCredential = await signInWithEmailAndPassword(
