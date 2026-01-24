@@ -41,7 +41,7 @@ form.addEventListener('submit', async (e) => {
 
     if (user.email != null) {
        //Redirect after login
-      window.location.href = "/admin/dashboard.html";
+      window.location.href = "/admin/";
     }
    
 
