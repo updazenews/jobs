@@ -35,32 +35,34 @@
         </nav>
     </div>
     <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-        <h1 class="display-4 fw-normal text-body-emphasis">Welcome to Sebenza Portal</h1>
-        <p class="fs-5 text-body-secondary">Your trusted platform for the latest job opportunities, Internships,
-            Learnerships &
-            Bursaries.</p>
-        <a href="jobs.html" class="btn btn-primary btn-lg mt-3 disabled">Get started</a>
+        <div class="container vh-100 d-flex align-items-center justify-content-center">
+            <div class="card shadow p-4" style="width: 100%; max-width: 400px;">
+                <h4 class="text-center mb-3">Admin Login</h4>
+                <div id="error" class="alert alert-danger d-none"></div>
+                <form id="loginForm">
+                    <div class="mb-3">
+                        <label>Email</label>
+                        <input type="email" class="form-control" id="usernameBox" placeholder="admin@updaze.co.za"
+                            required />
+                    </div>
+                    <div class="mb-3">
+                        <label>Password</label>
+                        <input type="password" class="form-control" id="passwordBox" required />
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100" id="loginBtn">Login</button>
+                    <button class="btn btn-primary" type="button" disabled id="loadingBtn" style="display: none;">
+                        <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                        <span role="status">Loading...</span>
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
 </header>
 
 <body class="bg-light">
-    <div id="error" class="alert alert-danger d-none"></div>
-    <div class="container vh-100 d-flex align-items-center justify-content-center">
-        <div class="card shadow p-4" style="width: 100%; max-width: 400px;">
-            <h4 class="text-center mb-3">Admin Login</h4>
-            <form id="loginForm">
-                <div class="mb-3">
-                    <label>Email</label>
-                    <input type="email" class="form-control" id="usernameBox" placeholder="admin@updaze.co.za" required  />
-                </div>
-                <div class="mb-3">
-                    <label>Password</label>
-                    <input type="password" class="form-control" id="passwordBox" required />
-                </div>
-                <button type="submit" class="btn btn-primary w-100" id="loginBtn">Login</button>
-            </form>
-        </div>
-    </div>
+
+
 </body>
 <footer>
     <script type="module" src="assets/js/login.js"></script>

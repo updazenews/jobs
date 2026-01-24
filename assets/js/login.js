@@ -8,13 +8,15 @@ const emailB = document.getElementById('usernameBox');
 const passwordB = document.getElementById('passwordBox');
 const errorBox = document.getElementById('error');
 const loginBtn = document.getElementById('loginBtn');
+const loadingBtn = document.getElementById('loadingBtn');
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   errorBox.classList.add('d-none');
+  loginBtn.style.display = 'none';
+  loadingBtn.style.display = 'inline-block';
   loginBtn.disabled = true;
-  loginBtn.textContent = 'Logging in...';
 
   const formData = new FormData(form);
   const email = emailB.value;
