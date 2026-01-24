@@ -1,7 +1,7 @@
 const form = document.getElementById('loginForm');
 const errorBox = document.getElementById('error');
 const loginBtn = document.getElementById('loginBtn');
-
+import { db } from "./jobs.js";
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
@@ -15,28 +15,27 @@ form.addEventListener('submit', async (e) => {
   const password = formData.get('password'); 
 
   try {
-    const response = await fetch('https://api-updaze.yzz.me/api/jobs/login.php', {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ email, password })
-    });
+    
+    const auth = getAuth();
+    const userCredential = await signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      return user;
+    }
 
-    const result = await response.json();
+    );  
 
     // Log the full response in the console
-    console.log('Login API Response:', result);
+    console.log('Login API Response:', userCredential);
 
-    if (!result.success) {
-      throw new Error(result.error || 'Login failed');
-    }
+   
 
     // OPTIONAL: store auth token
     // localStorage.setItem('admin_user', JSON.stringify(result.user));
 
     // Redirect to admin dashboard
-    window.location.href = '/admin/dashboard.html';
+    //window.location.href = '/admin/dashboard.html';
 
   } catch (err) {
     console.error('Login Error:', err); // log error details in console
