@@ -72,8 +72,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         : "Open until filled";
 
       const card = `
-        <div class="col-md-6 col-lg-4 mb-4">
-          <div class="card h-100 shadow-sm">
+        <div class="col">
+          <div class="card mb-4 rounded-3 shadow-sm">
             <div class="card-body d-flex flex-column">
               <h5 class="card-title">${escapeHTML(job.title)}</h5>
 
