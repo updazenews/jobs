@@ -161,7 +161,7 @@
                     </div>
                     <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
                         <ul class="nav flex-column">
-                            <li class="nav-item active"> 
+                            <li class="nav-item"> 
                                 <a class="nav-link d-flex align-items-center gap-2 active"
                                     aria-current="page" href="./"> 
                                     <svg class="bi" aria-hidden="true">
@@ -169,7 +169,7 @@
                                     </svg>
                                     Dashboard
                                 </a> </li>
-                            <li class="nav-item"> 
+                            <li class="nav-item active"> 
                                 <a class="nav-link d-flex align-items-center gap-2" href="./manage-users.html"> 
                                     <svg
                                         class="bi" aria-hidden="true">
@@ -179,7 +179,7 @@
                                 </a> 
                             </li>
                             <li class="nav-item"> 
-                                <a class="nav-link d-flex align-items-center gap-2" href="#"> 
+                                <a class="nav-link d-flex align-items-center gap-2" href="./job-listing.html"> 
                                     <svg
                                         class="bi" aria-hidden="true">
                                         <use xlink:href="#cart"></use>
@@ -259,7 +259,7 @@
                                     </svg>
                                     Settings
                                 </a> </li>
-                            <li class="nav-item"> <a class="nav-link d-flex align-items-center gap-2" href="#"> <svg
+                            <li class="nav-item"> <a class="nav-link d-flex align-items-center gap-2" href="./sign-out.html"> <svg
                                         class="bi" aria-hidden="true">
                                         <use xlink:href="#door-closed"></use>
                                     </svg>
@@ -272,28 +272,15 @@
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Dashboard</h1>
+                    <h1 class="h2">MAnage Users</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
-                        <div class="btn-group me-2"> <button type="button"
-                                class="btn btn-sm btn-outline-secondary">Share</button> <button type="button"
-                                class="btn btn-sm btn-outline-secondary">Export</button> </div> <button type="button"
-                            class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1">
-                            <svg class="bi" aria-hidden="true">
-                                <use xlink:href="#calendar3"></use>
-                            </svg>
-                            This week
-                        </button>
-                    </div>
-                </div> <canvas class="my-4 w-100" id="myChart" width="1508" height="637"
-                    style="display: block; box-sizing: border-box; height: 424px; width: 1005px;"></canvas>
-                <h2>Section title</h2>
-                <div class="table-responsive small">
-                    <table class="table table-striped table-sm">
+                        <div class="table-responsive small">
+                    <table class="table table-striped table-sm" id="tbUsers">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Header</th>
-                                <th scope="col">Header</th>
+                                <th scope="col">Full Name</th>
+                                <th scope="col">Email Address</th>
                                 <th scope="col">Header</th>
                                 <th scope="col">Header</th>
                             </tr>
@@ -309,6 +296,11 @@
                         </tbody>
                     </table>
                 </div>
+                    </div>
+                </div> <canvas class="my-4 w-100" id="myChart" width="1508" height="637"
+                    style="display: block; box-sizing: border-box; height: 424px; width: 1005px;"></canvas>
+                <h2>Section title</h2>
+                
             </main>
         </div>
     </div>
@@ -317,7 +309,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.js"
         integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp" crossorigin="anonymous"
         class="astro-vvvwv3sm"></script>
-    <script src="/admin/assets/js/dashboard.js" class="astro-vvvwv3sm"></script>
+    <script src="/admin/assets/js/manage-users.js" class="astro-vvvwv3sm"></script>
 </body>
 
 </html>
