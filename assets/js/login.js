@@ -3,7 +3,7 @@ from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 import { auth } from "./jobs.js";
 
-//const form = document.getElementById('loginForm');
+const form = document.getElementById('loginForm');
 const emailB = document.getElementById('usernameBox');
 const passwordB = document.getElementById('passwordBox');
 const errorBox = document.getElementById('error');
