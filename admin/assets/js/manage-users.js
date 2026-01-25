@@ -33,10 +33,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     
       
     }else{
-      window.location.href = "../../admin/logout";
+      //window.location.href = "../../admin/logout";
+      console.error("user not admin ");
     }
   } else {
-    window.location.href = "../../admin/logout";
+    //window.location.href = "../../admin/logout";
+    console.error("user empty ");
   }
 
   const usersContainer = document.getElementById("tbUsers");
