@@ -80,6 +80,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const myModal = document.getElementById('addUser');
   const myInput = document.getElementById('myInput');
 
- 
+ myModal.style.display = 'none';
 });
 
