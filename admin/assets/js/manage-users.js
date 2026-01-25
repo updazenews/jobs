@@ -14,14 +14,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   const usersContainer = document.getElementById("tbUsers");
 
   try {
-    
+
     const usersFer = collection(db, "users");
     const q = query(
-      usersFer, 
+      usersFer,
       orderBy("Full Name", "asc")
     );
     const snapshot = await getDocs(q);
-     if (snapshot.empty) {
+    if (snapshot.empty) {
       usersContainer.innerHTML = `
       <thead>
         <tr>
@@ -41,27 +41,27 @@ document.addEventListener("DOMContentLoaded", async () => {
       `;
       return;
     }
-      const users = snapshot.docs.map(doc => {
+    const users = snapshot.docs.map(doc => {
       const data = doc.data();
-      
+
       return {
-          fullName: data["Full Name"],
-          email: doc.id,
-          header: data["role"],
-          uid: doc.id 
-        };
-      });
-    
-      renderUsers(users);
-      
+        fullName: data["Full Name"],
+        email: doc.id,
+        header: data["role"],
+        uid: doc.id
+      };
+    });
+
+    renderUsers(users);
+
 
   } catch (error) {
     console.error(error);
   }
 
-   // 🔽 YOUR EXISTING RENDERER (UNCHANGED)
-  function renderUsers(users){
-    usersContainer.innerHTML = "<table class=\"table table-striped table-sm\" id=\"tbUsers\"> <thead> <tr> <th scope=\"col\">Full Name</th> <th scope=\"col\">Email Address</th> <th scope=\"col\">Role</th> <th scope=\"col\">Header</th> </tr> </thead>" ;
+  // 🔽 YOUR EXISTING RENDERER (UNCHANGED)
+  function renderUsers(users) {
+    usersContainer.innerHTML = "<table class=\"table table-striped table-sm\" id=\"tbUsers\"> <thead> <tr> <th scope=\"col\">Full Name</th> <th scope=\"col\">Email Address</th> <th scope=\"col\">Role</th> <th scope=\"col\">Header</th> </tr> </thead>";
     users.forEach(user => {
       const row = `
         <tr>
@@ -77,11 +77,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     usersContainer.innerHTML += "</tbody> </table>";
 
   }
+  const myModal = document.getElementById('addUser');
+  const myInput = document.getElementById('myInput');
+
+  myModal.addEventListener('shown.bs.modal', () => {
+    myInput.focus();
+  })
 });
 
-const myModal = document.getElementById('userModal')
-const myInput = document.getElementById('myInput')
-
-myModal.addEventListener('shown.bs.modal', () => {
-  myInput.focus()
-})
