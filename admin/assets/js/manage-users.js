@@ -8,7 +8,7 @@ import {
 
 import { db } from "../../../assets/js/jobs.js";
 import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { auth } from "./jobs.js";
+import { auth } from "../../../assets/js/jobs.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const usersContainer = document.getElementById("tbUsers");
