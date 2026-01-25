@@ -24,7 +24,7 @@ const loginBtn = document.getElementById('loginBtn');
 const loadingBtn = document.getElementById('loadingBtn');
 
 document.addEventListener('DOMContentLoaded', async () => {
-   const auth = getAuth();
+    auth = getAuth();
     const user = auth.currentUser;
   
     if (user) {
