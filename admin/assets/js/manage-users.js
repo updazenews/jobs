@@ -80,8 +80,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const myModal = document.getElementById('addUser');
   const myInput = document.getElementById('myInput');
 
-  myModal.addEventListener('shown.bs.modal', () => {
-    myInput.focus();
-  })
+ 
 });
 
