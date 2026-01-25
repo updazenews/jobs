@@ -257,21 +257,20 @@
                <div class="table-responsive small">
                                 <table class="table table-striped table-sm" id="tbJobs">
                                     <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Full Name</th>
-                                            <th scope="col">Email Address</th>
-                                            <th scope="col">Header</th>
-                                            <th scope="col">Header</th>
+                                        <tr>                                            
+                                            <th scope="col">Title</th>
+                                            <th scope="col">Company</th>
+                                            <th scope="col">Location</th>
+                                            <th scope="col">Job Type</th>
+                                            <th scope="col">Posted At</th>
+                                            <th scope="col">Closing Date</th>
+                                            <th scope="col">Active</th>
+                                            <th scope="col">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>1,015</td>
-                                            <td>random</td>
-                                            <td>tabular</td>
-                                            <td>information</td>
-                                            <td>text</td>
+                                           
                                         </tr>
                                     </tbody>
                                 </table>
@@ -288,49 +287,67 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.js"
         integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp" crossorigin="anonymous"
         class="astro-vvvwv3sm"></script>
-    <script type="module" src="/admin/assets/js/manage-users.js" class="astro-vvvwv3sm"></script>
+    <script type="module" src="/admin/assets/js/job-posts.js"></script>
 
    
 </body>
 <footer>
-     <div class="modal modal-dialog-centered" style="visibility: none;" tabindex="-1" id="addUser">
+     <div class="modal modal-dialog-centered" style="visibility: none;" tabindex="-1" id="addJob">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add User</h5>
+                    <h5 class="modal-title">Add Job</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div>
                         <div class="mb-3 row">
-                            <label for="fullName" class="col-sm-2 col-form-label">Full Name</label>
+                            <label for="title" class="col-sm-2 col-form-label">Title</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control-plaintext" id="fullName" value="John Doe">
+                                <input type="text" class="form-control-plaintext" id="title" value="Software Engineer">
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="uEmail" class="col-sm-2 col-form-label">Email</label>
+                            <label for="company" class="col-sm-2 col-form-label">Company</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control-plaintext" id="uEmail" value="email@example.com">
+                                <input type="text" class="form-control-plaintext" id="company" value="Tech Corp">
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="uPassword" class="col-sm-2 col-form-label">Password</label>
+                            <label for="location" class="col-sm-2 col-form-label">Location</label>
                             <div class="col-sm-10">
-                                <input type="password" class="form-control" id="uPassword">
+                                <input type="text" class="form-control-plaintext" id="location" value="New York">
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="cPassword" class="col-sm-2 col-form-label">Confirm Password</label>
+                            <label for="jobType" class="col-sm-2 col-form-label">Job Type</label>
                             <div class="col-sm-10">
-                                <input type="password" class="form-control" id="cPassword">
+                                <input type="text" class="form-control-plaintext" id="jobType" value="Full-time">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="postedAt" class="col-sm-2 col-form-label">Posted At</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control-plaintext" id="postedAt" value="">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="closingDate" class="col-sm-2 col-form-label">Closing Date</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control-plaintext" id="closingDate" value="">
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="requirements" class="col-sm-2 col-form-label">Requirements</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control-plaintext" id="requirements" value="">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="btnClose" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" id="btnSave" class="btn btn-primary">Save changes</button>
+                    <button type="button" id="btnSave" class="btn btn-primary">Add Jobs Post</button>
                 </div>
             </div>
         </div>
