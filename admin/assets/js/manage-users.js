@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   btnSave.addEventListener('click', () => {
     btnSave.disabled = true;
-    btnSave.innerText = "<div class=\"spinner-border\" role=\"status\"><span class=\"visually-hidden\">Loading...</span></div>";
+    btnSave.innerHTML = "<div class=\"spinner-border\" role=\"status\"><span class=\"visually-hidden\">Loading...</span></div>";
     if (uPassword.value !== cPassword.value) {
       alert("Passwords do not match!");
       return;
@@ -94,7 +94,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     createUserWithEmailAndPassword(auth, uEmail.value, uPassword.value)
       .then((userCredential) => {
         
-        db.collection("users").doc(userCredential.user.uid).set({
+        try {
+                  db.collection("users").doc(userCredential.user.uid).set({
           "Full Name": fullName.value,
           "role": "data Capturer"
         })
@@ -105,6 +106,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         .catch((error) => {
           console.error("Error adding user to Firestore: ", error);
         });
+        } catch (error) {
+          
+          console.error("Error creating user: ", error);s
+        }
         
 
         // Optionally, you can add additional user details to Firestore here
