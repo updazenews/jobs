@@ -59,9 +59,8 @@ import { createUserWithEmailAndPassword, getAuth } from "https://www.gstatic.com
     }
   })
 
-    const auth = getAuth();
-    const user = auth.currentUser;
-  
+  const auth = getAuth();
+  onAuthStateChanged(auth, async (user) => {
     if (user) {
       const userVer = collection(db, "users");
       const q = query(
@@ -70,18 +69,21 @@ import { createUserWithEmailAndPassword, getAuth } from "https://www.gstatic.com
       );
       const snapshot = await getDocs(q);
       const users = snapshot.docs.map(doc => {
-          return {role: data["role"]};
+        return { role: data["role"] };
       });
-      
-  
-      if (users[0].role === "administrator"){
-      
-     
-      }else{
+
+
+      if (users[0].role === "administrator") {
+
+
+      } else {
         window.location.href = "../../admin/logout";
+        console.error("user not admin ");
       }
     } else {
       window.location.href = "../../admin/logout";
+      console.error("user empty ");
     }
+  });
 })()
 
