@@ -9,10 +9,36 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 import { db, auth } from "../../../assets/js/jobs.js";
-import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { createUserWithEmailAndPassword, getAuth } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 //import {  } from "../../../assets/js/jobs.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
+
+  const auth = getAuth();
+  const user = auth.currentUser;
+
+  if (user) {
+    const userVer = collection(db, "users");
+    const q = query(
+      userVer,
+      where("email", "==", user.email)
+    );
+    const snapshot = await getDocs(q);
+    const users = snapshot.docs.map(doc => {
+        return {role: data["role"]};
+    });
+    
+
+    if (users[0].role === "administrator"){
+    
+   
+    }else{
+      window.location.href = "../../../";
+    }
+  } else {
+    window.location.href = "../../../";
+  }
+
   const usersContainer = document.getElementById("tbUsers");
 
   try {
@@ -108,10 +134,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         } catch (error) {
           
           console.error("Error creating user: ", error);
-        }
-        
-
-        // Optionally, you can add additional user details to Firestore here
+        }        
   });
 });
 })
