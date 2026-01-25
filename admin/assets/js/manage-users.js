@@ -8,7 +8,7 @@ import {
   orderBy
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-import { db, auth } from "../../../assets/js/jobs.js";
+import { db } from "../../../assets/js/jobs.js";
 import { createUserWithEmailAndPassword, getAuth } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 //import {  } from "../../../assets/js/jobs.js";
 
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (users[0].role === "administrator"){
     
-   
+      
     }else{
       window.location.href = "../../admin/logout";
     }
