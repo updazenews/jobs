@@ -30,17 +30,17 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
 
 
-      if (users[0].role === "administrator") {
+    //   if (users[0].role === "administrator") {
 
 
-      } else {
-        window.location.href = "../../admin/logout";
-        console.error("user not admin ");
-      }
-    } else {
-      window.location.href = "../../admin/logout";
-      console.error("user empty ");
-    }
+    //   } else {
+    //     window.location.href = "../../admin/logout";
+    //     console.error("user not admin ");
+    //   }
+    // } else {
+    //   window.location.href = "../../admin/logout";
+    //   console.error("user empty ");
+    // }
   });
   //end of auth check.
 
