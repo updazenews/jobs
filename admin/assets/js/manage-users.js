@@ -50,6 +50,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         };
       });
     
+      renderUsers(users);
       
 
   } catch (error) {
