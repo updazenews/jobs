@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       .then((userCredential) => {
         
         try {
-          setDoc(doc(db, "users", userCredential.user.uid),{
+          setDoc(doc(db, "users", userCredential.user.email),{
             "Full Name": fullName.value,
             "role": "data Capturer"
           }).then(() => {
