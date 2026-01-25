@@ -276,7 +276,7 @@
                                <h1 class="h2">Manage Users</h1>
                             </div>
                             <div class="col-md-6">
-                                 <button type="button" class="btn btn-primary">Add User</button>
+                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUser">Add User</button>
                             </div>
                         </div>
                         
@@ -319,6 +319,49 @@
         integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp" crossorigin="anonymous"
         class="astro-vvvwv3sm"></script>
     <script type="module" src="/admin/assets/js/manage-users.js" class="astro-vvvwv3sm"></script>
+
+    <div class="modal modal-dialog-centered" tabindex="-1" id="addUser">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="mb-3 row">
+                            <label for="fullName" class="col-sm-2 col-form-label">Full Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" readonly class="form-control-plaintext" id="fullName" value="John Doe">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="uEmail" class="col-sm-2 col-form-label">Email</label>
+                            <div class="col-sm-10">
+                                <input type="text" readonly class="form-control-plaintext" id="uEmail" value="email@example.com">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="uPassword" class="col-sm-2 col-form-label">Password</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="uPassword">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="cPassword" class="col-sm-2 col-form-label">Confirm Password</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="cPassword">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
