@@ -14,8 +14,6 @@ import { db, auth } from "assets/js/jobs.js";
 import { createUserWithEmailAndPassword, getAuth } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 
-import { auth } from "./jobs.js";
-
 const form = document.getElementById('loginForm');
 const emailB = document.getElementById('usernameBox');
 const passwordB = document.getElementById('passwordBox');
@@ -24,7 +22,7 @@ const loginBtn = document.getElementById('loginBtn');
 const loadingBtn = document.getElementById('loadingBtn');
 
 document.addEventListener('DOMContentLoaded', async () => {
-    auth = getAuth();
+    const auth = getAuth();
     const user = auth.currentUser;
   
     if (user) {
