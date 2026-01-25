@@ -1,6 +1,8 @@
 import {
   collection,
   getDocs,
+  setDoc,
+  doc,
   query,
   where,
   orderBy
@@ -95,20 +97,17 @@ document.addEventListener("DOMContentLoaded", async () => {
       .then((userCredential) => {
         
         try {
-                  db.collection("users").doc(userCredential.user.uid).set({
-          "Full Name": fullName.value,
-          "role": "data Capturer"
-        })
-        .then(() => {
-          console.log('User created:', user);
-          location.reload();
-        })
-        .catch((error) => {
-          console.error("Error adding user to Firestore: ", error);
-        });
+          setDoc(doc(db, "users", userCredential.user.uid),{
+            "Full Name": fullName.value,
+            "role": "data Capturer"
+          }).then(() => {
+            console.log('User created:', userCredential.user.uid);
+            location.reload();
+          });
+          
         } catch (error) {
           
-          console.error("Error creating user: ", error);s
+          console.error("Error creating user: ", error);
         }
         
 
