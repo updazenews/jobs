@@ -7,6 +7,8 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 import { db } from "../../../assets/js/jobs.js";
+import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { auth } from "./jobs.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const usersContainer = document.getElementById("tbUsers");
@@ -66,7 +68,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           <td>${user.fullName}</td>
           <td>${user.email}</td>
           <td>${user.header}</td>
-          <td><button class="btn btn-danger" onclick="deleteUser('${user.uid}')">Delete</button></td>
+          <td><button class="btn btn-danger" onclick="deleteUser('${user.uid}')">Suspend</button></td>
         </tr>
       `;
       usersContainer.innerHTML += row;
