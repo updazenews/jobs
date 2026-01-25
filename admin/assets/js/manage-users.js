@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const auth = getAuth();
 
+  //Check if the user is authorised to access this page.
   onAuthStateChanged(auth, async (user) => {
     if (user) {
       const userVer = collection(db, "users");
@@ -41,13 +42,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       console.error("user empty ");
     }
   });
+  //end of auth check.
 
   
-
-
-
   const usersContainer = document.getElementById("tbUsers");
-
   try {
 
     const usersFer = collection(db, "users");
