@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const jobsContainer = document.getElementById("tbJobs");
   try {
 
-    const jobsFer = collection(db, "jobPosts");
+    const jobsFer = collection(db, "jobs");
     const q = query(
       jobsFer,
       orderBy("Post", "asc")
@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const requirements = document.getElementById("requirements").value;
 
     try {
-      const newJobRef = doc(collection(db, "jobPosts"));
+      const newJobRef = doc(collection(db, "jobs"));
       await setDoc(newJobRef, {
         title,
         company,
