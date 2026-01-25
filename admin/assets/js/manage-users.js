@@ -77,9 +77,37 @@ document.addEventListener("DOMContentLoaded", async () => {
     usersContainer.innerHTML += "</tbody> </table>";
 
   }
-  const myModal = document.getElementById('addUser');
-  const myInput = document.getElementById('myInput');
+  const btnSave = document.getElementById('btnSave');
+  const fullName = document.getElementById('fullName');
+  const uEmail = document.getElementById('uEmail');
+  const uPassword = document.getElementById('uPassword');
+  const cPassword = document.getElementById('cPassword');
 
- myModal.style.display = 'none';
+  btnSave.addEventListener('click', () => {
+    btnSave.disabled = true;
+    btnSave.innerText = "<div class=\"spinner-border\" role=\"status\"><span class=\"visually-hidden\">Loading...</span></div>";
+    if (uPassword.value !== cPassword.value) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    createUserWithEmailAndPassword(auth, uEmail.value, uPassword.value)
+      .then((userCredential) => {
+        
+        db.collection("users").doc(userCredential.user.uid).set({
+          "Full Name": fullName.value,
+          "role": "data Capturer"
+        })
+        .then(() => {
+          console.log('User created:', user);
+          location.reload();
+        })
+        .catch((error) => {
+          console.error("Error adding user to Firestore: ", error);
+        });
+        
+
+        // Optionally, you can add additional user details to Firestore here
+  });
 });
-
+})
