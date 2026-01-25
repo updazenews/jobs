@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       
 
   } catch (error) {
-    
+    console.error(error);
   }
 
    // 🔽 YOUR EXISTING RENDERER (UNCHANGED)
@@ -72,6 +72,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     usersContainer.innerHTML += "</tbody>";
-    
+
   }
 });
