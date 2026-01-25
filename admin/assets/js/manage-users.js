@@ -33,10 +33,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     
    
     }else{
-      window.location.href = "../../admin/login";
+      window.location.href = "../../admin/logout";
     }
   } else {
-    window.location.href = "../../admin/login";
+    window.location.href = "../../admin/logout";
   }
 
   const usersContainer = document.getElementById("tbUsers");

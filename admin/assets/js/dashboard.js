@@ -78,10 +78,10 @@ import { createUserWithEmailAndPassword, getAuth } from "https://www.gstatic.com
       
      
       }else{
-        window.location.href = "../../admin/login";
+        window.location.href = "../../admin/logout";
       }
     } else {
-      window.location.href = "../../admin/login";
+      window.location.href = "../../admin/logout";
     }
 })()
 
