@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
    // 🔽 YOUR EXISTING RENDERER (UNCHANGED)
   function renderUsers(users){
-    usersContainer.innerHTML = "<table class=\"table table-striped table-sm\" id=\"tbUsers\"> <thead> <tr> <th scope=\"col\">#</th> <th scope=\"col\">Full Name</th> <th scope=\"col\">Email Address</th> <th scope=\"col\">Header</th> </tr> </thead>" ;
+    usersContainer.innerHTML = "<table class=\"table table-striped table-sm\" id=\"tbUsers\"> <thead> <tr> <th scope=\"col\">Full Name</th> <th scope=\"col\">Email Address</th> <th scope=\"col\">Role</th> <th scope=\"col\">Header</th> </tr> </thead>" ;
     users.forEach(user => {
       const row = `
         <tr>
