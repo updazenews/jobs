@@ -1,6 +1,19 @@
 /* globals Chart:false */
+import {
+  collection,
+  getDocs,
+  setDoc,
+  doc,
+  query,
+  where,
+  orderBy
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-(() => {
+import { db, auth } from "../../../assets/js/jobs.js";
+import { createUserWithEmailAndPassword, getAuth } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+//import {  } from "../../../assets/js/jobs.js";
+
+(async () => {
   'use strict'
 
   // Graphs
@@ -45,5 +58,30 @@
       }
     }
   })
+
+    const auth = getAuth();
+    const user = auth.currentUser;
+  
+    if (user) {
+      const userVer = collection(db, "users");
+      const q = query(
+        userVer,
+        where("email", "==", user.email)
+      );
+      const snapshot = await getDocs(q);
+      const users = snapshot.docs.map(doc => {
+          return {role: data["role"]};
+      });
+      
+  
+      if (users[0].role === "administrator"){
+      
+     
+      }else{
+        window.location.href = "../../admin/login";
+      }
+    } else {
+      window.location.href = "../../admin/login";
+    }
 })()
 
