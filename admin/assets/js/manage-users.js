@@ -78,3 +78,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   }
 });
+
+const myModal = document.getElementById('userModal')
+const myInput = document.getElementById('myInput')
+
+myModal.addEventListener('shown.bs.modal', () => {
+  myInput.focus()
+})
