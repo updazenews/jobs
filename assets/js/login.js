@@ -10,7 +10,7 @@ import {
   orderBy
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-import { db, auth } from "assets/js/jobs.js";
+import { db, auth } from "/assets/js/jobs.js";
 import { createUserWithEmailAndPassword, getAuth } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 
