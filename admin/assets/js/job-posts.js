@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const company = document.getElementById("inputCompanyName").value;
     const location = document.getElementById("inputLocation").value;
     const jobType = document.getElementById("inputJobType").value;
-    const postedAt = Date.now();
+    const postedAt = new Date(Date.now());
     const closingDate = document.getElementById("inputClosingDate").value;
     const inputWorkType = document.getElementById("inputWorkType").value;
     const description = document.getElementById("inputJobDescription").value;
@@ -124,17 +124,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         inputWorkType,
         description,
         requirements
+      })
+      .then(() => {
+        //Refresh the page after successful addition
+        location.reload();
       });
       console.log("Job post added successfully");
       // Optionally, refresh the job list
 
-      document.getElementById("inputJobTitle").value = "";
-      document.getElementById("inputCompanyName").value = "";
-      document.getElementById("inputLocation").value = "";
-      document.getElementById("inputJobType").value = "";
-      document.getElementById("closingDate").value = "";
-      document.getElementById("inputJobDescription").value = "";
-      document.getElementById("inputJobRequirements").value = "";
+      
     } catch (error) {
       console.error("Error adding job post: ", error);
     }
