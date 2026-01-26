@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       <td>${job.location}</td>
       <td>${job.jobType}</td>
       <td>${job.postedAt}</td>
-      <td>${job.closingDate}</td>
+      <td>${job.closingDate.toLocaleString()}</td>
       <td>${job.active ? "Yes" : "No"}</td>
       <td>
         <button class="btn btn-sm btn-primary edit-job" data-id="${job.id}">Edit</button>
