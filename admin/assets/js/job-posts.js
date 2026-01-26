@@ -14,16 +14,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   //Check if the user is authorised to access this page.
   const auth = getAuth();
-  onAuthStateChanged(auth, async (user) => {
-
-    
-    
+  onAuthStateChanged(auth, async (user) => {  
     const currentUser = auth.currentUser;
     if (user) {
       const userVer = collection(db, "users");
       const q = query(
-        userVer,
-        where("email", "==", user.email)
+        userVer
       );
       const snapshot = await getDocs(q);
       const users = snapshot.docs.map(doc => {
