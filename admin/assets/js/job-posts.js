@@ -12,7 +12,7 @@ import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged } from "htt
 
 document.addEventListener("DOMContentLoaded", async () => {
 
-  btnSave = document.getElementById("btnSaveJob");
+  constbtnSave = document.getElementById("btnSaveJob");
   //Check if the user is authorised to access this page.
   // const auth = getAuth();
   // onAuthStateChanged(auth, async (user) => {  
