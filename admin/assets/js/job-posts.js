@@ -48,7 +48,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const jobsFer = collection(db, "jobs");
     const q = query(
       jobsFer,
-      orderBy("Post", "asc")
     );
     const snapshot = await getDocs(q);
     const jobs = snapshot.docs.map(doc => {
