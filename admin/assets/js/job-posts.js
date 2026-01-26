@@ -77,16 +77,19 @@ document.addEventListener("DOMContentLoaded", async () => {
     const jobsContainer = document.getElementById("tbJobs");
     jobsContainer.innerHTML = "";
     jobs.forEach(job => {
-      postedAtDate = new Date(job.postedAt.seconds * 1000 + job.postedAt.nanoseconds / 1e6).toLocaleDateString();
-      closingDate = new Date(job.closingDate.seconds * 1000 + job.closingDate.nanoseconds / 1e6).toLocaleDateString();
+
+      postedAtDate = new Date(job.postedAt.seconds * 1000 + job.postedAt.nanoseconds / 1000000);
+      closingDateDate = new Date(job.closingDate.seconds * 1000 + job.closingDate.nanoseconds / 1000000);
+      job.postedAt = postedAtDate.toLocaleDateString();
+      job.closingDate = closingDateDate.toLocaleDateString();
       const row = document.createElement("tr");
       row.innerHTML = `
       <td>${job.title}</td>
       <td>${job.company}</td>
       <td>${job.location}</td>
       <td>${job.jobType}</td>
-      <td>${postedAtDate}</td>
-      <td>${closingDate}</td>
+      <td>${job.postedAt}</td>
+      <td>${job.closingDate}</td>
       <td>${job.active ? "Yes" : "No"}</td>
       <td>
         <button class="btn btn-sm btn-primary edit-job" data-id="${job.id}">Edit</button>
