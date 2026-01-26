@@ -19,7 +19,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (user) {
       const userVer = collection(db, "users");
       const q = query(
-        userVer
+        userVer,
+        where("email", "==", user.email)
       );
       const snapshot = await getDocs(q);
       const users = snapshot.docs.map(doc => {
