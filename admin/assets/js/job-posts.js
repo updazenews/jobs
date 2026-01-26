@@ -78,8 +78,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     jobsContainer.innerHTML = "";
     jobs.forEach(job => {
 
-      postedAtDate = new Date(job.postedAt.seconds * 1000 + job.postedAt.nanoseconds / 1000000);
-      closingDateDate = new Date(job.closingDate.seconds * 1000 + job.closingDate.nanoseconds / 1000000);
+    var postedAtDate = new Date(job.postedAt.seconds * 1000 + job.postedAt.nanoseconds / 1000000);
+    var closingDateDate = new Date(job.closingDate.seconds * 1000 + job.closingDate.nanoseconds / 1000000);
       job.postedAt = postedAtDate.toLocaleDateString();
       job.closingDate = closingDateDate.toLocaleDateString();
       const row = document.createElement("tr");
