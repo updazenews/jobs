@@ -12,10 +12,11 @@ import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged } from "htt
 
 document.addEventListener("DOMContentLoaded", async () => {
 
+  btnSave = document.getElementById("btnSaveJob");
   //Check if the user is authorised to access this page.
   // const auth = getAuth();
   // onAuthStateChanged(auth, async (user) => {  
-    
+
   //   if (user) {
   //    const userVer = collection(db, "users");
   //     const q = query(
@@ -78,8 +79,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     jobsContainer.innerHTML = "";
     jobs.forEach(job => {
 
-    var postedAtDate = new Date(job.postedAt.seconds * 1000 + job.postedAt.nanoseconds / 1000000);
-    var closingDateDate = new Date(job.closingDate.seconds * 1000 + job.closingDate.nanoseconds / 1000000);
+      var postedAtDate = new Date(job.postedAt.seconds * 1000 + job.postedAt.nanoseconds / 1000000);
+      var closingDateDate = new Date(job.closingDate.seconds * 1000 + job.closingDate.nanoseconds / 1000000);
       job.postedAt = postedAtDate.toLocaleDateString();
       job.closingDate = closingDateDate.toLocaleDateString();
       const row = document.createElement("tr");
@@ -101,15 +102,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   btnSave.addEventListener("click", async () => {
-    const title = document.getElementById("title").value;
-    const company = document.getElementById("company").value;
-    const location = document.getElementById("location").value;
-    const jobType = document.getElementById("jobType").value;
-    const postedAt = document.getElementById("postedAt").value;
+    const title = document.getElementById("inputJobTitle").value;
+    const company = document.getElementById("inputCompanyName").value;
+    const location = document.getElementById("inputLocation").value;
+    const jobType = document.getElementById("inputJobType").value;
+    const postedAt = Date.now();
     const closingDate = document.getElementById("closingDate").value;
-    const active = document.getElementById("active").checked;
-    const description = document.getElementById("description").value;
-    const requirements = document.getElementById("requirements").value;
+    const inputWorkType = document.getElementById("inputWorkType").value;
+    const description = document.getElementById("inputJobDescription").value;
+    const requirements = document.getElementById("inputJobRequirements").value;
 
     try {
       const newJobRef = doc(collection(db, "jobs"));
@@ -120,12 +121,20 @@ document.addEventListener("DOMContentLoaded", async () => {
         jobType,
         postedAt,
         closingDate,
-        active,
+        inputWorkType,
         description,
         requirements
       });
       console.log("Job post added successfully");
       // Optionally, refresh the job list
+
+      document.getElementById("inputJobTitle").value = "";
+      document.getElementById("inputCompanyName").value = "";
+      document.getElementById("inputLocation").value = "";
+      document.getElementById("inputJobType").value = "";
+      document.getElementById("closingDate").value = "";
+      document.getElementById("inputJobDescription").value = "";
+      document.getElementById("inputJobRequirements").value = "";
     } catch (error) {
       console.error("Error adding job post: ", error);
     }
