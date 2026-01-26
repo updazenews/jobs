@@ -13,34 +13,34 @@ import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged } from "htt
 document.addEventListener("DOMContentLoaded", async () => {
 
   //Check if the user is authorised to access this page.
-  const auth = getAuth();
-  onAuthStateChanged(auth, async (user) => {  
-    const currentUser = auth.currentUser;
-    if (user) {
-      const userVer = collection(db, "users");
-      const q = query(
-        userVer,
-        where("email", "==", user.email)
-      );
-      const snapshot = await getDocs(q);
-      const users = snapshot.docs.map(doc => {
-        return { role: data["role"] };
-      });
+  // const auth = getAuth();
+  // onAuthStateChanged(auth, async (user) => {  
+    
+  //   if (user) {
+  //    const userVer = collection(db, "users");
+  //     const q = query(
+  //       userVer,
+  //       where("email", "==", user.email)
+  //     );
+  //     const snapshot = await getDocs(q);
+  //     const users = snapshot.docs.map(doc => {
+  //       return { role: data["role"] };
+  //     });
 
 
-      if (users[0].role === "administrator") {
+  //     if (users[0].role === "administrator") {
 
 
-      } else {
-        window.location.href = "../../admin/logout";
-        console.error("user not admin ");
-      }
-    } else {
-      window.location.href = "../../admin/logout";
-      console.error("user empty ");
-    }
-  });
-  //end of auth check.
+  //     } else {
+  //       window.location.href = "../../admin/logout";
+  //       console.error("user not admin ");
+  //     }
+  //   } else {
+  //     window.location.href = "../../admin/logout";
+  //     console.error("user empty ");
+  //   }
+  // });
+  // //end of auth check.
 
   const jobsContainer = document.getElementById("tbJobs");
   try {
