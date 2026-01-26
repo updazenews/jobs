@@ -17,12 +17,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   onAuthStateChanged(auth, async (user) => {
 
     
+    
     const currentUser = auth.currentUser;
-    if (currentUser) {
+    if (user) {
       const userVer = collection(db, "users");
       const q = query(
         userVer,
-        where("email", "==", currentUser.email)
+        where("email", "==", user.email)
       );
       const snapshot = await getDocs(q);
       const users = snapshot.docs.map(doc => {
