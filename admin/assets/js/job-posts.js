@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
 
-  document.addEventListener('click', async function (e) {
+  document.addEventListener('click', function (e) {
 
     // EDIT
     if (e.target.classList.contains('edit-job')) {
@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const jobRef = doc(db, "jobs", id);
         // call delete API here
-        await updateDoc(jobRef, {
+        updateDoc(jobRef, {
           active: deleteField()
         })
         .then(() => {
