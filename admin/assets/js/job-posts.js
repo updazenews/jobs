@@ -81,26 +81,28 @@ document.addEventListener("DOMContentLoaded", async () => {
     jobsContainer.innerHTML = "";
     jobs.forEach(job => {
 
-      var postedAtDate = new Date(job.postedAt.seconds * 1000 + job.postedAt.nanoseconds / 1000000);
-      var closingDateDate = new Date(job.closingDate.seconds * 1000 + job.closingDate.nanoseconds / 1000000);
-      job.postedAt = postedAtDate.toLocaleDateString();
-      job.closingDate = closingDateDate.toLocaleDateString();
-      const row = document.createElement("tr");
-      row.innerHTML = `
-      <td>${job.title}</td>
-      <td>${job.company}</td>
-      <td>${job.location}</td>
-      <td>${job.jobType}</td>
-      <td>${job.postedAt}</td>
-      <td>${job.closingDate}</td>
-      <td>${job.active ? "Yes" : "No"}</td>
-      <td>
-        <button class="btn btn-sm btn-primary edit-job" data-id="${job.id}">Edit</button>
-        <button class="btn btn-sm btn-danger delete-job" data-id="${job.id}"
-    data-title="${job.title}">Delete</button>
-      </td>
-    `;
-      jobsContainer.appendChild(row);
+      if (job.active !== false) {
+            var postedAtDate = new Date(job.postedAt.seconds * 1000 + job.postedAt.nanoseconds / 1000000);
+            var closingDateDate = new Date(job.closingDate.seconds * 1000 + job.closingDate.nanoseconds / 1000000);
+            job.postedAt = postedAtDate.toLocaleDateString();
+            job.closingDate = closingDateDate.toLocaleDateString();
+            const row = document.createElement("tr");
+            row.innerHTML = `
+            <td>${job.title}</td>
+            <td>${job.company}</td>
+            <td>${job.location}</td>
+            <td>${job.jobType}</td>
+            <td>${job.postedAt}</td>
+            <td>${job.closingDate}</td>
+            <td>${job.active ? "Yes" : "No"}</td>
+            <td>
+              <button class="btn btn-sm btn-primary edit-job" data-id="${job.id}">Edit</button>
+              <button class="btn btn-sm btn-danger delete-job" data-id="${job.id}"
+          data-title="${job.title}">Delete</button>
+            </td>
+          `;
+            jobsContainer.appendChild(row);
+      }
     });
   }
 
@@ -128,7 +130,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         const jobRef = doc(db, "jobs", id);
         // call delete API here
         updateDoc(jobRef, {
-          active: deleteField()
+          active: false,
+          deletedAt: new Date() 
         })
         .then(() => {
           //Refresh the page after successful deletion
