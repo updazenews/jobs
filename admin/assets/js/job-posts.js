@@ -93,13 +93,34 @@ document.addEventListener("DOMContentLoaded", async () => {
       <td>${job.closingDate}</td>
       <td>${job.active ? "Yes" : "No"}</td>
       <td>
-        <button class="btn btn-sm btn-primary edit-job" data-id="${job.id}">Edit</button>
+        <button class="btn btn-sm btn-primary edit-job" data-id="${job.id}" onclick="deleteAlert('${job.id}', '${job.title}')">Edit</button>
         <button class="btn btn-sm btn-danger delete-job" data-id="${job.id}">Delete</button>
       </td>
     `;
       jobsContainer.appendChild(row);
     });
   }
+
+
+  function deleteAlert(id, title) {
+    if (confirm("Are you sure you want to delete " + title + " job post?")) {
+      deleteJob(id);
+    }
+  }
+
+  function deleteJob(jobId) {
+    const jobRef = doc(db, "jobs", jobId);
+    deleteDoc(jobRef)
+      .then(() => {
+        console.log("Job post deleted successfully");
+        location.reload();
+      })
+      .catch((error) => {
+        console.error("Error deleting job post: ", error);
+      });
+  }
+
+
 
   btnSave.addEventListener("click", async () => {
     const title = document.getElementById("inputJobTitle").value;
@@ -136,6 +157,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     } catch (error) {
       console.error("Error adding job post: ", error);
     }
+  });
+
+  document.getElementById("uploadBtn").addEventListener("change", function(event) {
+    
   });
 });
 
