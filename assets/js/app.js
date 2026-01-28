@@ -67,11 +67,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     jobsContainer.innerHTML = "";
 
     jobs.forEach(job => {
-      const closingDate = job.closing_date
-        ? new Date(job.closing_date).toLocaleDateString("en-ZA")
-        : "Open until filled";
+      if (job.active !== false) {
+        const closingDate = job.closing_date
+          ? new Date(job.closing_date).toLocaleDateString("en-ZA")
+          : "Open until filled";
 
-      const card = `
+        const card = `
         <div class="col">
           <div class="card mb-4 rounded-3 shadow-sm">
             <div class="card-body d-flex flex-column">
@@ -102,7 +103,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         </div>
       `;
 
-      jobsContainer.insertAdjacentHTML("beforeend", card);
+        jobsContainer.insertAdjacentHTML("beforeend", card);
+      }
     });
   }
 
