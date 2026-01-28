@@ -93,8 +93,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       <td>${job.closingDate}</td>
       <td>${job.active ? "Yes" : "No"}</td>
       <td>
-        <button class="btn btn-sm btn-primary edit-job" data-id="${job.id}" onclick="deleteAlert('${job.id}', '${job.title}')">Edit</button>
-        <button class="btn btn-sm btn-danger delete-job" data-id="${job.id}">Delete</button>
+        <button class="btn btn-sm btn-primary edit-job" data-id="${job.id}">Edit</button>
+        <button class="btn btn-sm btn-danger delete-job" onclick="deleteAlert('${job.id}', '${job.title}')">Delete</button>
       </td>
     `;
       jobsContainer.appendChild(row);
