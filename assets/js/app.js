@@ -44,9 +44,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         company: data.company,
         category: data.category ?? "General",
         location: data.location ?? "South Africa",
-        closing_date: data.closingDate
-          ? data.closingDate.toDate()
-          : null,
+        closing_date: data.closingDate,
         slug: doc.id // using document ID instead of PHP slug
       };
     });
