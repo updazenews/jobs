@@ -78,6 +78,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   function processJobs(jobs) {
     const jobsContainer = document.getElementById("tbJobs");
+    const loadingDiv = document.getElementById("loadingDiv");
+    loadingDiv.style.display = "none";
     jobsContainer.innerHTML = "";
     jobs.forEach(job => {
 
