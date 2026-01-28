@@ -4,6 +4,8 @@ import {
   setDoc,
   doc,
   query,
+  updateDoc, 
+  deleteField,
   where,
   orderBy
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -103,7 +105,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
 
-  document.addEventListener('click', function (e) {
+  document.addEventListener('click', async function (e) {
 
     // EDIT
     if (e.target.classList.contains('edit-job')) {
@@ -122,7 +124,19 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       if (confirm(`Are you sure you want to delete "${title}"?`)) {
         console.log('Deleting job:', id);
+
+        const jobRef = doc(db, "jobs", id);
         // call delete API here
+        await updateDoc(jobRef, {
+          active: deleteField()
+        })
+        .then(() => {
+          //Refresh the page after successful deletion
+          document.location.reload();
+        })
+        .catch((error) => {
+          console.error("Error deleting job post: ", error);
+        });
       }
     }
   });
