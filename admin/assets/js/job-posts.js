@@ -94,7 +94,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       <td>${job.active ? "Yes" : "No"}</td>
       <td>
         <button class="btn btn-sm btn-primary edit-job" data-id="${job.id}">Edit</button>
-        <button class="btn btn-sm btn-danger delete-job" onclick="deleteAlert('${job.id}', '${job.title}')">Delete</button>
+        <button class="btn btn-sm btn-danger delete-job" data-id="${job.id}"
+    data-title="${job.title}">Delete</button>
       </td>
     `;
       jobsContainer.appendChild(row);
@@ -102,23 +103,30 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
 
-  function deleteAlert(id, title) {
-    if (confirm("Are you sure you want to delete " + title + " job post?")) {
-      deleteJob(id);
-    }
-  }
+  document.addEventListener('click', function (e) {
 
-  function deleteJob(jobId) {
-    const jobRef = doc(db, "jobs", jobId);
-    deleteDoc(jobRef)
-      .then(() => {
-        console.log("Job post deleted successfully");
-        location.reload();
-      })
-      .catch((error) => {
-        console.error("Error deleting job post: ", error);
-      });
-  }
+    // EDIT
+    if (e.target.classList.contains('edit-job')) {
+      const id = e.target.dataset.id;
+      const title = e.target.dataset.title;
+
+      if (confirm(`Do you want to edit "${title}"?`)) {
+        window.location.href = `/jobs/edit/${id}`;
+      }
+    }
+
+    // DELETE
+    if (e.target.classList.contains('delete-job')) {
+      const id = e.target.dataset.id;
+      const title = e.target.dataset.title;
+
+      if (confirm(`Are you sure you want to delete "${title}"?`)) {
+        console.log('Deleting job:', id);
+        // call delete API here
+      }
+    }
+  });
+
 
 
 
@@ -146,21 +154,21 @@ document.addEventListener("DOMContentLoaded", async () => {
         description,
         requirements
       })
-      .then(() => {
-        //Refresh the page after successful addition
-        location.reload();
-      });
+        .then(() => {
+          //Refresh the page after successful addition
+          location.reload();
+        });
       console.log("Job post added successfully");
       // Optionally, refresh the job list
 
-      
+
     } catch (error) {
       console.error("Error adding job post: ", error);
     }
   });
 
-  document.getElementById("uploadBtn").addEventListener("change", function(event) {
-    
+  document.getElementById("uploadBtn").addEventListener("change", function (event) {
+
   });
 });
 
