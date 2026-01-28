@@ -175,7 +175,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       })
         .then(() => {
           //Refresh the page after successful addition
-          location.reload();
+          document.location.reload();
         });
       console.log("Job post added successfully");
       // Optionally, refresh the job list
