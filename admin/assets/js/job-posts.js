@@ -159,6 +159,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const inputWorkType = document.getElementById("inputWorkType").value;
     const description = document.getElementById("inputJobDescription").value;
     const requirements = document.getElementById("inputJobRequirements").value;
+    const active = true;
 
     try {
       const newJobRef = doc(collection(db, "jobs"));
@@ -171,7 +172,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         closingDate,
         inputWorkType,
         description,
-        requirements
+        requirements,
+        active
       })
         .then(() => {
           //Refresh the page after successful addition
