@@ -23,27 +23,10 @@ document.addEventListener("DOMContentLoaded", async () =>{
     const inputClosingDate = document.getElementById("inputClosingDate");
     const inputApplicationURL = document.getElementById("inputApplicationURL");
     const inputJobRequirements = document.getElementById("inputJobRequirements");
+    
     const jobId = params.get("id");
     const btnSubmit = document.getElementById("btnsubmit");
     
-
-    btnSubmit.addEventListener("click", async (e) => {
-        e.preventDefault();
-        const updatedJobData = {
-            company: inputCompanyName.value,
-            title: inputJobTitle.value,
-            location: inputJobLocation.value,
-            jobType: inputJobType.value,
-            workType: inputWorkType.value,
-            description: inputJobDescription.value,
-            closingDate: inputClosingDate.value,
-            url: inputApplicationURL.value,
-            requirements: inputJobRequirements.value
-        };
-        await setDoc(doc(db, "jobs", jobId), updatedJobData);
-        window.location.href = "/admin/jobs";
-    });
-
     // Fetch existing job data
     
     const jobDoc = await getDoc(doc(db, "jobs", jobId));
@@ -63,5 +46,24 @@ document.addEventListener("DOMContentLoaded", async () =>{
         
     }
     
+        btnSubmit.addEventListener("click", async (e) => {
+        const postedAt = jobData.postedAt;
+        e.preventDefault();
+        const updatedJobData = {
+            company: inputCompanyName.value,
+            title: inputJobTitle.value,
+            location: inputJobLocation.value,
+            jobType: inputJobType.value,
+            workType: inputWorkType.value,
+            description: inputJobDescription.value,
+            closingDate: inputClosingDate.value,
+            url: inputApplicationURL.value,
+            requirements: inputJobRequirements.value,
+            postedAt: postedAt.value
+            
+        };
+        await setDoc(doc(db, "jobs", jobId), updatedJobData);
+        window.location.href = "/admin/jobs";
+    });
     
 });
