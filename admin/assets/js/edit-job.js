@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", async () =>{
     const btnSubmit = document.getElementById("btnsubmit");
 
     btnSubmit.addEventListener("click", async (e) => {
-        e.preventDefault();});
+        e.preventDefault();
         const updatedJobData = {
             company: inputCompanyName.value,
             title: inputJobTitle.value,
