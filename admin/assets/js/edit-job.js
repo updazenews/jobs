@@ -24,6 +24,24 @@ document.addEventListener("DOMContentLoaded", async () =>{
     const inputApplicationURL = document.getElementById("inputApplicationURL");
     const inputJobRequirements = document.getElementById("inputJobRequirements");
     const jobId = params.get("id");
+    const btnSubmit = document.getElementById("btnsubmit");
+
+    btnSubmit.addEventListener("click", async (e) => {
+        e.preventDefault();});
+        const updatedJobData = {
+            company: inputCompanyName.value,
+            title: inputJobTitle.value,
+            location: inputJobLocation.value,
+            jobType: inputJobType.value,
+            workType: inputWorkType.value,
+            description: inputJobDescription.value,
+            closingDate: inputClosingDate.value,
+            url: inputApplicationURL.value,
+            requirements: inputJobRequirements.value
+        };
+        await updateDoc(doc(db, "jobs", jobId), updatedJobData);
+        window.location.href = "/admin/jobs";
+    });
 
     // Fetch existing job data
     
