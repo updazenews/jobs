@@ -195,7 +195,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       alert("Please select a CSV file");
       return;
     }
-    
+    const loadingSpinner = document.getElementById("loadingSpinner");
+    loadingSpinner.style.visibility = "visible";
     Papa.parse(file, {
       header: true,
       skipEmptyLines: true,
@@ -212,7 +213,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             requirements: row.requirements || "",
             url: row.url || "",
             closingDate: row.closingDate
-              ? Timestamp.fromDate(new Date(row.closingDate))
+              ? new Date(row.closingDate)
               : null,
             active: true,
             createdAt: Timestamp.now(),
