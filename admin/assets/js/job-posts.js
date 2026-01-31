@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const btnSave = document.getElementById("btnSaveJob");
   //Check if the user is authorised to access this page.
-  // const auth = getAuth();
+  const auth = getAuth();
   // onAuthStateChanged(auth, async (user) => {  
 
   //   if (user) {
@@ -146,9 +146,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-
-
-
+  // ADD NEW JOB from Modal
   btnSave.addEventListener("click", async () => {
     const title = document.getElementById("inputJobTitle").value;
     const company = document.getElementById("inputCompanyName").value;
@@ -188,10 +186,45 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
+  // Upload jobs from CSV file
   document.getElementById("uploadBtn").addEventListener("change", function (event) {
-
-  });
+    const csvInput = document.getElementById("csvFile");
+    const file = event.target.files[0];
+   
+    if (!file) {
+      alert("Please select a CSV file");
+      return;
+    }
+    
+    Papa.parse(file, {
+      header: true,
+      skipEmptyLines: true,
+      complete: async function (results) {
+        try {
+          for(const row of results.data) {
+            await setDoc(doc(collection(db, "jobs")), {
+                          company: row.company || "",
+            title: row.title || "",
+            location: row.location || "",
+            jobType: row.jobType || "",
+            workType: row.workType || "",
+            description: row.description || "",
+            requirements: row.requirements || "",
+            url: row.url || "",
+            closingDate: row.closingDate
+              ? Timestamp.fromDate(new Date(row.closingDate))
+              : null,
+            active: true,
+            createdAt: Timestamp.now(),
+            createdBy: auth.currentUser ? auth.currentUser.uid : "unknown"
+            });
+          }
+        } catch (error) {
+          console.error("Error uploading CSV data:", error);
+        }
+      }
+    });
 });
-
+});
 
 
