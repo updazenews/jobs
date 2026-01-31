@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", async () =>{
     const jobDoc = await getDoc(doc(db, "jobs", jobId));
     
     if (jobDoc.exists()) {
+      document.title = jobDoc.data().title + " at " + jobDoc.data().company + " - Edit Job Post";
         const jobData = jobDoc.data();
         inputCompanyName.value = jobData.company || "";
         inputJobTitle.value = jobData.title || "";
