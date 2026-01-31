@@ -1,6 +1,6 @@
 import {
   collection,
-  getDocs,
+  getDoc,
   setDoc,
   doc,
   query,
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", async () =>{
 
     // Fetch existing job data
     
-    const jobDoc = await getDocs(doc(db, "jobs", jobId));
+    const jobDoc = await getDoc(doc(db, "jobs", jobId));
     
     if (jobDoc.exists()) {
         const jobData = jobDoc.data();
