@@ -216,7 +216,7 @@ document.addEventListener("DOMContentLoaded", async () => {
               ? new Date(row.closingDate)
               : null,
             active: true,
-            createdAt: Timestamp.now(),
+            createdAt: new Date(Date.now()),
             createdBy: auth.currentUser ? auth.currentUser.uid : "unknown"
             });
           }
