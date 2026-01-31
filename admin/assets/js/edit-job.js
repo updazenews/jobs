@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", async () =>{
             url: inputApplicationURL.value,
             requirements: inputJobRequirements.value
         };
-        await updateDoc(doc(db, "jobs", jobId), updatedJobData);
+        await setDoc(doc(db, "jobs", jobId), updatedJobData);
         window.location.href = "/admin/jobs";
     });
 
