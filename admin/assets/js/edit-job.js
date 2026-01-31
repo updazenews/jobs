@@ -32,15 +32,14 @@ document.addEventListener("DOMContentLoaded", async () =>{
     
     if (jobDoc.exists()) {
         const jobData = jobDoc.data();
-        inputCompanyName.value = jobData.companyName || "";
-        inputJobTitle.value = jobData.jobTitle || "";
-        inputJobLocation.value = jobData.jobLocation || "";
+        inputCompanyName.value = jobData.company || "";
+        inputJobTitle.value = jobData.title || "";
+        inputJobLocation.value = jobData.location || "";
         inputJobType.value = jobData.jobType || "";
         inputJobCategory.value = jobData.jobCategory || "";
-        inputJobDescription.value = jobData.jobDescription || "";
-        inputApplicationEmail.value = jobData.applicationEmail || "";
-        inputApplicationURL.value = jobData.applicationURL || "";
-        inputJobTags.value = (jobData.jobTags || []).join(", ");
+        inputJobDescription.value = jobData.description || "";
+        inputApplicationURL.value = jobData.url || "";
+        //inputJobTags.value = (jobData.jobTags || []).join(", ");
     }
     
     
