@@ -27,10 +27,10 @@ document.addEventListener("DOMContentLoaded", async () =>{
     const jobId = params.get("id");
 
     // Fetch existing job data
-    const jobDoc = await getDocs(query(doc(db, "jobs", jobId)));
+    const jobDoc = await getDoc(doc(db, "jobs", jobId));
     
-    if (!jobDoc.empty) {
-        const jobData = jobDoc.docs[0].data();
+    if (jobDoc.exists()) {
+        const jobData = jobDoc.data();
         inputCompanyName.value = jobData.companyName || "";
         inputJobTitle.value = jobData.jobTitle || "";
         inputJobLocation.value = jobData.jobLocation || "";
