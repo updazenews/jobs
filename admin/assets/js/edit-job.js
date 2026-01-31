@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", async () =>{
     const jobId = params.get("id");
 
     // Fetch existing job data
-    const jobDoc = await getDocs(db, "jobs", jobId);
+    const jobDoc = await getDocs(query(doc(db, "jobs", jobId)));
     
     if (!jobDoc.empty) {
         const jobData = jobDoc.docs[0].data();
