@@ -25,8 +25,7 @@ document.addEventListener("DOMContentLoaded", async () =>{
     const inputJobRequirements = document.getElementById("inputJobRequirements");
     const jobId = params.get("id");
     const btnSubmit = document.getElementById("btnsubmit");
-    const editDataSection = document.getElementById("editData");
-    const editDataPlaceholder = document.getElementById("editDataPlaceholder");
+    
 
     btnSubmit.addEventListener("click", async (e) => {
         e.preventDefault();
@@ -61,10 +60,7 @@ document.addEventListener("DOMContentLoaded", async () =>{
         inputApplicationURL.value = jobData.url || "";
         inputJobRequirements.value = jobData.requirements || "";
         //inputJobTags.value = (jobData.jobTags || []).join(", ");
-        editDataSection.style.display = "block";
-        editDataSection.style.visibility = "visible";
-        editDataPlaceholder.style.visibility = "hidden";        
-        editDataSectionholder.style.display = "none";
+        
     }
     
     
