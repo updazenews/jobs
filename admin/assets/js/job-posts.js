@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             <td>${job.closingDate}</td>
             <td>${job.active ? "Yes" : "No"}</td>
             <td>
-              <button class="btn btn-sm btn-primary edit-job" data-id="${job.id}">Edit</button>
+              <a class="btn btn-sm btn-primary" href="././edit?id=${job.id}">Edit</a>
               <button class="btn btn-sm btn-danger delete-job" data-id="${job.id}"
           data-title="${job.title}">Delete</button>
             </td>
