@@ -250,12 +250,74 @@
             </div>
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <div
-                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <div class="col">
                     <div class="row g-3">
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <h1 class="h2">Edit : </h1>
+                                <h1 class="h2">Edit Job Item </h1>
+                            </div>
+                            <div class="col">
+                                <form class="row g-3 needs-validation" novalidate>
+                                    <div class="row g-2">
+                                        <div class="col form-floating mb-3">
+                                            <input type="text" class="form-control" id="inputCompanyName"
+                                                placeholder="Updaze Digital Solutions" required>
+                                            <label for="inputCompanyName">Company Name</label>
+                                        </div>
+                                        <div class=" col form-floating mb-3">
+                                            <input type="text" class="form-control" id="inputJobTitle"
+                                                placeholder="Junior Software Developer" required>
+                                            <label for="inputJobTitle">Job Title</label>
+                                        </div>
+                                    </div>
+                                    <div class="row g-2">
+                                        <div class="col form-floating">
+                                            <input type="text" class="form-control" id="inputLocation"
+                                                placeholder="Nairobi, Kenya" required>
+                                            <label for="inputLocation">Location</label>
+                                        </div>
+                                        <div class="col form-floating">
+                                            <input type="date" class="form-control" id="inputClosingDate"
+                                                placeholder="Nairobi, Kenya" required>
+                                            <label for="inputClosingDate">Closing Date</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-floating">
+                                        <textarea class="form-control" placeholder="Job Description"
+                                            id="inputJobDescription" style="height: 100px"></textarea>
+                                        <label for="inputJobDescription">Job Description</label>
+                                    </div>
+                                    <div class="form-floating">
+                                        <textarea class="form-control" placeholder="Job required"
+                                            id="inputJobRequirements" style="height: 100px"></textarea>
+                                        <label for="inputJobRequirements">Job Requirements</label>
+                                    </div>
+                                    <div class="col-md">
+                                        <div class="form-floating">
+                                            <select class="form-select" id="inputJobType">
+                                                <option selected>Open this select menu</option>
+                                                <option value="Permanent">Permanent</option>
+                                                <option value="Part-Time">Part-Time</option>
+                                                <option value="Contract">Contract</option>
+                                            </select>
+                                            <label for="inputJobType">Job Type</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md">
+                                        <div class="form-floating">
+                                            <select class="form-select" id="inputWorkType">
+                                                <option selected>Open this select menu</option>
+                                                <option value="Office">Office</option>
+                                                <option value="Remote">Remote</option>
+                                                <option value="Hybrid">Hybrid</option>
+                                            </select>
+                                            <label for="inputWorkType">Work Type</label>
+                                        </div>
+                                    </div>
+
+
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -267,5 +329,8 @@
         </div>
     </div>
 </body>
+<footer>
+    <script type="module" src="/admin/assets/js/edit-job.js"></script>
+</footer>
 
 </html>
