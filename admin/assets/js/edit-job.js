@@ -28,7 +28,19 @@ document.addEventListener("DOMContentLoaded", async () =>{
 
     // Fetch existing job data
     const jobDoc = await getDocs(query(collection(db, "jobs"), jobId));
-    console.log(jobDoc);
+    
+    if (!jobDoc.empty) {
+        const jobData = jobDoc.docs[0].data();
+        inputCompanyName.value = jobData.companyName || "";
+        inputJobTitle.value = jobData.jobTitle || "";
+        inputJobLocation.value = jobData.jobLocation || "";
+        inputJobType.value = jobData.jobType || "";
+        inputJobCategory.value = jobData.jobCategory || "";
+        inputJobDescription.value = jobData.jobDescription || "";
+        inputApplicationEmail.value = jobData.applicationEmail || "";
+        inputApplicationURL.value = jobData.applicationURL || "";
+        inputJobTags.value = (jobData.jobTags || []).join(", ");
+    }
     
     
 });
