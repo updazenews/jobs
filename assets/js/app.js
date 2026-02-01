@@ -67,15 +67,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     jobs.forEach(job => {
       if (job.active !== false) {
         const closingDateDate = new Date(job.closing_date.seconds * 1000 + job.closing_date.nanoseconds / 1000000);
-            
 
+        // Difference in days
+        const diffInDays = (closingDateDate - now) / (1000 * 60 * 60 * 24);
+
+        // Show badge only if closing date is within 30 days and not expired
+        const closesSoonBadge = (diffInDays > 0 && diffInDays <= 30)
+          ? `
+      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+        Closes \nsoon!
+        <span class="visually-hidden">Alert</span>
+      </span>
+    `
+          : "";
         const card = `
         <div class="col">
           <div class="card">
-          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-              Closes soon!
-              <span class="visually-hidden">Alert</span>
-            </span>
+          ${closesSoonBadge}
             <div class="row g-3">
               <div class="col-md">
                   <div class="card-body">
