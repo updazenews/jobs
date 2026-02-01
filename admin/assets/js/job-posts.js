@@ -157,6 +157,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const inputWorkType = document.getElementById("inputWorkType").value;
     const description = document.getElementById("inputJobDescription").value;
     const requirements = document.getElementById("inputJobRequirements").value;
+    const url = document.getElementById("inputUrl").value;
     const active = true;
 
     try {
@@ -171,7 +172,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         inputWorkType,
         description,
         requirements,
-        active
+        active,
+        url,
       })
         .then(() => {
           //Refresh the page after successful addition
