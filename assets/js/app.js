@@ -72,6 +72,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         const card = `
         <div class="col">
           <div class="card">
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              Closes soon!
+              <span class="visually-hidden">Alert</span>
+            </span>
             <div class="row g-3">
               <div class="col-md">
                   <div class="card-body">
