@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 🔽 YOUR EXISTING RENDERER (UNCHANGED)
   function renderJobs(jobs) {
     jobsContainer.innerHTML = "";
-
+    const now = new Date();
     jobs.forEach(job => {
       if (job.active !== false) {
         const closingDateDate = new Date(job.closing_date.seconds * 1000 + job.closing_date.nanoseconds / 1000000);
