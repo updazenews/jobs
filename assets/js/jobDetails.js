@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded",async()=>{
     if(jobDoc.exists()){
         const jobData=jobDoc.data();
         titleElement.textContent=`${jobData.title} at ${jobData.company}`;
-        subtitleElement.textContent=`Location: ${jobData.location} | Type: ${jobData.jobType} | Work Type: ${jobData.workType}`;
+        subtitleElement.innerHTML=`<i class="bi bi-bookmark-check-fill"></i> Location: ${jobData.location} | <br/><i class="bi bi-geo-alt-fill"></i>Type: ${jobData.jobType} | Work Type: ${jobData.workType}`;
         applyNowButton.href=`${jobData.url}`;
         
     }
