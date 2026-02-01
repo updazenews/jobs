@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                   <div class="card-body">
                     <h5 class="card-title">${escapeHTML(job.title)}</h5>
                     <p class="card-text"><i class="bi bi-buildings-fill"></i> Company: ${escapeHTML(job.company)}</p>
-                    <p class="card-text">Category: ${escapeHTML(job.category)}</p>
+                    <p class="card-text"><i class="bi bi-bookmark-check-fill"></i> Category: ${escapeHTML(job.category)}</p>
                     <p class="card-text"><i class="bi bi-geo-alt-fill"></i> Location: ${escapeHTML(job.location)}</p>
                     <p class="card-text"><small class="text-body-secondary">Closing Date: ${closingDateDate.toLocaleDateString("en-ZA")}</small></p>
                     <a href="details.html?jobId=${job.slug}" class="btn btn-primary">View Details</a>
