@@ -66,9 +66,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     jobs.forEach(job => {
       if (job.active !== false) {
-        const closingDate = job.closing_date
-          ? new Date(job.closing_date).toLocaleDateString("en-ZA")
-          : "Open until filled";
+        const closingDateDate = new Date(job.closingDate.seconds * 1000 + job.closingDate.nanoseconds / 1000000);
+            
 
         const card = `
         <div class="col">
@@ -80,7 +79,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <p class="card-text">Company: ${escapeHTML(job.company)}</p>
                     <p class="card-text">Category: ${escapeHTML(job.category)}</p>
                     <p class="card-text">Location: ${escapeHTML(job.location)}</p>
-                    <p class="card-text"><small class="text-body-secondary">Closing Date: ${closingDate}</small></p>
+                    <p class="card-text"><small class="text-body-secondary">Closing Date: ${closingDateDate.toLocaleDateString("en-ZA")}</small></p>
                     <a href="#" class="btn btn-primary">View Details</a>
                   </div>
               </div>
