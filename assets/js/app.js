@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     jobs.forEach(job => {
       if (job.active !== false) {
-        const closingDateDate = new Date(job.closingDate.seconds * 1000 + job.closingDate.nanoseconds / 1000000);
+        const closingDateDate = new Date(job.closing_date.seconds * 1000 + job.closing_date.nanoseconds / 1000000);
             
 
         const card = `
