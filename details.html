@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    <header>
+<header>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WM1KXZD6DL"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
@@ -36,16 +36,48 @@
     <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
         <h1 class="display-4 fw-normal text-body-emphasis" id="title"></h1>
         <p class="fs-5 text-body-secondary" id="subtitle"></p>
-        <a href="" class="btn btn-primary btn-lg mt-3 disabled" id="applyNow">Apply Now</a>
+        <a href="" class="btn btn-primary btn-lg mt-3" id="applyNow">Apply Now</a>
     </div>
 </header>
+
 <body>
     <div class="container my-5">
-        <h2 class="mb-4">Job Details</h2>
-
-        <div id="jobDetailsContainer">
-            <!-- Job details will be dynamically inserted here -->
+        <h2>Description</h2>
+        <p id="Description"></p>
+        <br\>
+            <h2>Requirements</h2>
+            <p id="Requirements"></p>
+    </div>
+    <div class="row align-items-center justify-content-center pb-3 mb-4 border-top">
+        <div class="col-md-6 text-center">
+            <a href="" id="applyNow2" class="btn btn-secondary btn-lg mt-3 mb-3">Apply Now</a>
         </div>
+        <div class="col-md-6 text-center">
+            <a href="jobs.html" class="btn btn-secondary btn-lg mt-3 mb-3">Back to Job Listings</a>
+        </div>
+        <div class="share-job mt-4">
+            <h6 class="fw-semibold mb-2">share</h6>
+
+            <div class="d-flex gap-2">
+                <a id="share-facebook" class="btn btn-outline-primary btn-sm" target="_blank">
+                    <i class="bi bi-facebook"></i> Facebook
+                </a>
+
+                <a id="share-twitter" class="btn btn-outline-dark btn-sm" target="_blank">
+                    <i class="bi bi-twitter-x"></i> X
+                </a>
+
+                <a id="share-linkedin" class="btn btn-outline-info btn-sm" target="_blank">
+                    <i class="bi bi-linkedin"></i> LinkedIn
+                </a>
+
+                <a id="share-whatsapp" class="btn btn-outline-success btn-sm" target="_blank">
+                    <i class="bi bi-whatsapp"></i> WhatsApp
+                </a>
+            </div>
+        </div>
+
+
     </div>
 </body>
 <footer>
@@ -78,4 +110,5 @@
 
     </div>
 </footer>
+
 </html>
