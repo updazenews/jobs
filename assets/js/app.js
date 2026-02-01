@@ -72,30 +72,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const card = `
         <div class="col">
-          <div class="card mb-4 rounded-3 shadow-sm">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">${escapeHTML(job.title)}</h5>
-
-              <h6 class="card-subtitle mb-2 text-muted">
-                ${escapeHTML(job.company)}
-              </h6>
-
-              <p class="mb-1">
-                <strong>Category:</strong> ${escapeHTML(job.category)}
-              </p>
-
-              <p class="mb-1">
-                <strong>Location:</strong> ${escapeHTML(job.location)}
-              </p>
-
-              <p class="mb-3">
-                <strong>Closing date:</strong> ${closingDate}
-              </p>
-
-              <a href="job.html?id=${encodeURIComponent(job.slug)}"
-                 class="btn btn-primary mt-auto">
-                View Details
-              </a>
+          <div class="card">
+            <div class="row g-3">
+              <div class="col-md">
+                  <div class="card-body">
+                    <h5 class="card-title">${escapeHTML(job.title)}</h5>
+                    <p class="card-text">Company: ${escapeHTML(job.company)}</p>
+                    <p class="card-text">Category: ${escapeHTML(job.category)}</p>
+                    <p class="card-text">Location: ${escapeHTML(job.location)}</p>
+                    <p class="card-text"><small class="text-body-secondary">Closing Date: ${closingDate}</small></p>
+                    <a href="#" class="btn btn-primary">View Details</a>
+                  </div>
+              </div>
             </div>
           </div>
         </div>
