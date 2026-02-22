@@ -249,9 +249,9 @@
                             <h1 class="h2 mb-1">Manage Job Posts</h1>
                             <p class="text-secondary mb-0">Create, search, archive, and review job posts.</p>
                         </div>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <a href="/admin/add-job.html" class="btn btn-primary">
                             <i class="bi bi-plus-circle me-1"></i>Add new job
-                        </button>
+                        </a>
                     </div>
 
                     <div class="card shadow-sm border-0 mb-3">
@@ -304,91 +304,7 @@
             </main>
         </div>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add a Job Posting</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form class="row g-3 needs-validation" novalidate>
-                        <div class="row g-2">
-                            <div class="col form-floating mb-3">
-                                <input type="text" class="form-control" id="inputCompanyName"
-                                    placeholder="Updaze Digital Solutions" required>
-                                <label for="inputCompanyName">Company Name</label>
-                            </div>
-                            <div class=" col form-floating mb-3">
-                                <input type="text" class="form-control" id="inputJobTitle"
-                                    placeholder="Junior Software Developer" required>
-                                <label for="inputJobTitle">Job Title</label>
-                            </div>
-                        </div>
-                        <div class="row g-2">
-                            <div class="col form-floating">
-                                <input type="text" class="form-control" id="inputLocation" placeholder="Nairobi, Kenya"
-                                    required>
-                                <label for="inputLocation">Location</label>
-                            </div>
-                            <div class="col form-floating">
-                                <input type="date" class="form-control" id="inputClosingDate"
-                                    placeholder="Nairobi, Kenya" required>
-                                <label for="inputClosingDate">Closing Date</label>
-                            </div>
-                        </div>
-                        <div class="form-floating">
-                            <textarea class="form-control" placeholder="Job Description" id="inputJobDescription"
-                                style="height: 100px"></textarea>
-                            <label for="inputJobDescription">Job Description</label>
-                        </div>
-                        <div class="form-floating">
-                            <textarea class="form-control" placeholder="Job required" id="inputJobRequirements"
-                                style="height: 100px"></textarea>
-                            <label for="inputJobRequirements">Job Requirements</label>
-                        </div>
-                        <div class="col-md">
-                            <div class="form-floating">
-                                <select class="form-select" id="inputJobType">
-                                    <option selected>Open this select menu</option>
-                                    <option value="Permanent">Permanent</option>
-                                    <option value="Part-Time">Part-Time</option>
-                                    <option value="Contract">Contract</option>
-                                </select>
-                                <label for="inputJobType">Job Type</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md">
-                            <div class="form-floating">
-                                <select class="form-select" id="inputWorkType">
-                                    <option selected>Open this select menu</option>
-                                    <option value="Office">Office</option>
-                                    <option value="Remote">Remote</option>
-                                    <option value="Hybrid">Hybrid</option>
-                                </select>
-                                <label for="inputWorkType">Work Type</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="mb-3">
-                                <label for="inputUrl" class="form-label">Application URL</label>
-                                <input type="url" class="form-control" id="inputUrl"
-                                    placeholder="Link to the job application or email address">
-                            </div>
-                        </div>
-
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="btnSaveJob">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
+    </body>
 <footer>
 
 

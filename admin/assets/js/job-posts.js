@@ -13,12 +13,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   const jobsTableBody = document.getElementById('tbJobs');
   const loadingDiv = document.getElementById('loadingDiv');
   const uploadInput = document.getElementById('uploadBtn');
-  const btnSave = document.getElementById('btnSaveJob');
-  const addJobModalEl = document.getElementById('exampleModal');
-  const addJobModal = addJobModalEl && window.bootstrap ? window.bootstrap.Modal.getOrCreateInstance(addJobModalEl) : null;
   const headerSection = document.querySelector('main .border-bottom');
 
-  const jobsState = { all: [], visible: [], view: 'active' };
+  const jobsState = { all: [], view: 'active' };
 
   headerSection?.insertAdjacentHTML('beforeend', `
     <div class="admin-jobs-toolbar py-3 w-100">
@@ -46,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const viewActiveBtn = document.getElementById('viewActive');
   const viewArchiveBtn = document.getElementById('viewArchive');
 
-  searchInput?.addEventListener('input', () => applyViewAndSearch());
+  searchInput?.addEventListener('input', applyViewAndSearch);
   viewActiveBtn?.addEventListener('click', () => setView('active'));
   viewArchiveBtn?.addEventListener('click', () => setView('archive'));
 
@@ -55,22 +52,20 @@ document.addEventListener('DOMContentLoaded', async () => {
   function setView(view) {
     jobsState.view = view;
     viewActiveBtn.classList.toggle('active', view === 'active');
-    viewActiveBtn.classList.toggle('btn-outline-primary', view !== 'active');
     viewActiveBtn.classList.toggle('btn-primary', view === 'active');
+    viewActiveBtn.classList.toggle('btn-outline-primary', view !== 'active');
     viewArchiveBtn.classList.toggle('active', view === 'archive');
-    viewArchiveBtn.classList.toggle('btn-outline-secondary', view !== 'archive');
     viewArchiveBtn.classList.toggle('btn-secondary', view === 'archive');
+    viewArchiveBtn.classList.toggle('btn-outline-secondary', view !== 'archive');
     applyViewAndSearch();
   }
 
   async function loadJobs() {
     loadingDiv.style.display = 'block';
     try {
-      const jobsRef = collection(db, 'jobs');
-      const q = query(jobsRef, orderBy('postedAt', 'desc'));
+      const q = query(collection(db, 'jobs'), orderBy('postedAt', 'desc'));
       const snapshot = await getDocs(q);
-
-      jobsState.all = snapshot.docs.map((docRef) => normalizeJob(docRef.id, docRef.data()));
+      jobsState.all = snapshot.docs.map((d) => normalizeJob(d.id, d.data()));
       renderStats();
       applyViewAndSearch();
     } catch (error) {
@@ -90,7 +85,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       jobType: data.jobType || data.workType || '-',
       postedAt: toDate(data.postedAt),
       closingDate: toDate(data.closingDate),
-      url: data.url || '',
       active: data.active !== false,
     };
   }
@@ -112,27 +106,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     return !job.active || isExpired(job);
   }
 
-  function applyViewAndSearch() {
-    const searchTerm = String(searchInput?.value || '').toLowerCase().trim();
-
-    let viewList = jobsState.all.filter((job) => (jobsState.view === 'archive' ? isArchived(job) : job.active && !isExpired(job)));
-
-    if (searchTerm) {
-      viewList = viewList.filter((job) => `${job.title} ${job.company} ${job.location}`.toLowerCase().includes(searchTerm));
-    }
-
-    jobsState.visible = viewList;
-    renderRows(viewList);
-  }
-
   function renderStats() {
     statTotal.textContent = `Total: ${jobsState.all.length}`;
     statActive.textContent = `Active: ${jobsState.all.filter((job) => job.active && !isExpired(job)).length}`;
   }
 
+  function applyViewAndSearch() {
+    const term = String(searchInput?.value || '').toLowerCase().trim();
+    let list = jobsState.all.filter((job) => (jobsState.view === 'archive' ? isArchived(job) : job.active && !isExpired(job)));
+    if (term) list = list.filter((job) => `${job.title} ${job.company} ${job.location}`.toLowerCase().includes(term));
+    renderRows(list);
+  }
+
   function renderRows(jobs) {
     jobsTableBody.innerHTML = '';
-
     if (!jobs.length) {
       jobsTableBody.innerHTML = `<tr><td colspan="8" class="text-muted">No ${jobsState.view === 'archive' ? 'archived' : 'active'} jobs found.</td></tr>`;
       return;
@@ -163,9 +150,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   document.addEventListener('click', async (event) => {
     if (!event.target.classList.contains('delete-job')) return;
-
-    const id = event.target.dataset.id;
-    const title = event.target.dataset.title;
+    const { id, title } = event.target.dataset;
     if (!confirm(`Archive "${title}"?`)) return;
 
     try {
@@ -176,70 +161,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (error) {
       console.error('Error archiving job:', error);
       alert('Could not archive this job.');
-    }
-  });
-
-  btnSave?.addEventListener('click', async () => {
-    const title = document.getElementById('inputJobTitle').value.trim();
-    const company = document.getElementById('inputCompanyName').value.trim();
-    const location = document.getElementById('inputLocation').value.trim();
-    const jobType = document.getElementById('inputJobType').value;
-    const workType = document.getElementById('inputWorkType').value;
-    const description = document.getElementById('inputJobDescription').value.trim();
-    const requirements = document.getElementById('inputJobRequirements').value.trim();
-    const url = document.getElementById('inputUrl').value.trim();
-    const closingDateValue = document.getElementById('inputClosingDate').value;
-
-    if (!title || !company || !location || !description || !requirements) {
-      alert('Please complete all required fields before saving.');
-      return;
-    }
-
-    if (url && !/^https?:\/\//i.test(url)) {
-      alert('Application URL must start with http:// or https://');
-      return;
-    }
-
-    if (closingDateValue) {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      const selected = new Date(closingDateValue);
-      if (selected < today) {
-        alert('Closing date cannot be in the past for a new job post.');
-        return;
-      }
-    }
-
-    try {
-      btnSave.disabled = true;
-      btnSave.textContent = 'Saving...';
-
-      const newDoc = doc(collection(db, 'jobs'));
-      await setDoc(newDoc, {
-        title,
-        company,
-        location,
-        jobType,
-        workType,
-        description,
-        requirements,
-        url,
-        postedAt: new Date(),
-        closingDate: closingDateValue ? new Date(closingDateValue) : null,
-        active: true,
-        createdBy: auth.currentUser?.uid || 'unknown',
-      });
-
-      await loadJobs();
-      addJobModal?.hide();
-      addJobModalEl?.querySelector('form')?.reset();
-      alert('Job post created successfully.');
-    } catch (error) {
-      console.error('Error adding job post:', error);
-      alert('Failed to add job post.');
-    } finally {
-      btnSave.disabled = false;
-      btnSave.textContent = 'Save changes';
     }
   });
 
