@@ -67,3 +67,40 @@
 #tbJobs td {
   vertical-align: middle;
 }
+
+.admin-jobs-page .card {
+  border-radius: 0.75rem;
+}
+
+.admin-jobs-table-wrap {
+  border-radius: 0.75rem;
+}
+
+.admin-jobs-table-wrap .table th,
+.admin-jobs-table-wrap .table td {
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+#tbJobs td:last-child {
+  min-width: 140px;
+}
+
+#tbJobs .btn {
+  margin-bottom: 0.25rem;
+}
+
+@media (max-width: 767px) {
+  .admin-jobs-toolbar .badge {
+    display: inline-block;
+    margin-top: 0.25rem;
+  }
+
+  .admin-jobs-page h1 {
+    font-size: 1.35rem;
+  }
+
+  #tbJobs td:last-child {
+    min-width: 120px;
+  }
+}

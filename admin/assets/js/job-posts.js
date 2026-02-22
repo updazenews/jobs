@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const loadingDiv = document.getElementById('loadingDiv');
   const uploadInput = document.getElementById('uploadBtn');
   const btnSave = document.getElementById('btnSaveJob');
+  const addJobModalEl = document.getElementById('exampleModal');
+  const addJobModal = addJobModalEl && window.bootstrap ? window.bootstrap.Modal.getOrCreateInstance(addJobModalEl) : null;
   const headerSection = document.querySelector('main .border-bottom');
 
   const jobsState = { all: [], visible: [], view: 'active' };
@@ -188,12 +190,30 @@ document.addEventListener('DOMContentLoaded', async () => {
     const url = document.getElementById('inputUrl').value.trim();
     const closingDateValue = document.getElementById('inputClosingDate').value;
 
-    if (!title || !company) {
-      alert('Title and Company are required.');
+    if (!title || !company || !location || !description || !requirements) {
+      alert('Please complete all required fields before saving.');
       return;
     }
 
+    if (url && !/^https?:\/\//i.test(url)) {
+      alert('Application URL must start with http:// or https://');
+      return;
+    }
+
+    if (closingDateValue) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const selected = new Date(closingDateValue);
+      if (selected < today) {
+        alert('Closing date cannot be in the past for a new job post.');
+        return;
+      }
+    }
+
     try {
+      btnSave.disabled = true;
+      btnSave.textContent = 'Saving...';
+
       const newDoc = doc(collection(db, 'jobs'));
       await setDoc(newDoc, {
         title,
@@ -211,10 +231,15 @@ document.addEventListener('DOMContentLoaded', async () => {
       });
 
       await loadJobs();
+      addJobModal?.hide();
+      addJobModalEl?.querySelector('form')?.reset();
       alert('Job post created successfully.');
     } catch (error) {
       console.error('Error adding job post:', error);
       alert('Failed to add job post.');
+    } finally {
+      btnSave.disabled = false;
+      btnSave.textContent = 'Save changes';
     }
   });
 
