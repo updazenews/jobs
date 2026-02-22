@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Add Job | Sebenza Admin</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="/admin/assets/css/dashboard.css">
+</head>
+<body class="bg-light">
+  <main class="container py-4 py-md-5">
+    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+      <h1 class="h3 mb-0">Add New Job</h1>
+      <a href="/admin/jobs.html" class="btn btn-outline-secondary"><i class="bi bi-arrow-left me-1"></i>Back to jobs</a>
+    </div>
+
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-4">
+        <form id="addJobForm" class="row g-3" novalidate>
+          <div class="col-md-6">
+            <label class="form-label" for="inputCompanyName">Company Name</label>
+            <input type="text" class="form-control" id="inputCompanyName" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label" for="inputJobTitle">Job Title</label>
+            <input type="text" class="form-control" id="inputJobTitle" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label" for="inputLocation">Location</label>
+            <input type="text" class="form-control" id="inputLocation" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label" for="inputClosingDate">Closing Date</label>
+            <input type="date" class="form-control" id="inputClosingDate" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label" for="inputJobType">Job Type</label>
+            <select class="form-select" id="inputJobType" required>
+              <option value="Permanent">Permanent</option>
+              <option value="Part-Time">Part-Time</option>
+              <option value="Contract">Contract</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label" for="inputWorkType">Work Type</label>
+            <select class="form-select" id="inputWorkType" required>
+              <option value="Office">Office</option>
+              <option value="Remote">Remote</option>
+              <option value="Hybrid">Hybrid</option>
+            </select>
+          </div>
+
+          <div class="col-12">
+            <label class="form-label">Job Description</label>
+            <div class="editor-toolbar mb-2" data-editor-toolbar="descriptionEditor">
+              <button type="button" class="btn btn-sm btn-outline-secondary" data-command="bold"><b>B</b></button>
+              <button type="button" class="btn btn-sm btn-outline-secondary" data-command="italic"><i>I</i></button>
+              <button type="button" class="btn btn-sm btn-outline-secondary" data-command="underline"><u>U</u></button>
+              <button type="button" class="btn btn-sm btn-outline-secondary" data-command="insertUnorderedList">• List</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary" data-command="insertOrderedList">1. List</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary" data-command="createLink">Link</button>
+            </div>
+            <div id="descriptionEditor" class="rich-editor form-control" contenteditable="true" data-placeholder="Write job description here..."></div>
+          </div>
+
+          <div class="col-12">
+            <label class="form-label">Job Requirements</label>
+            <div class="editor-toolbar mb-2" data-editor-toolbar="requirementsEditor">
+              <button type="button" class="btn btn-sm btn-outline-secondary" data-command="bold"><b>B</b></button>
+              <button type="button" class="btn btn-sm btn-outline-secondary" data-command="italic"><i>I</i></button>
+              <button type="button" class="btn btn-sm btn-outline-secondary" data-command="underline"><u>U</u></button>
+              <button type="button" class="btn btn-sm btn-outline-secondary" data-command="insertUnorderedList">• List</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary" data-command="insertOrderedList">1. List</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary" data-command="createLink">Link</button>
+            </div>
+            <div id="requirementsEditor" class="rich-editor form-control" contenteditable="true" data-placeholder="Write job requirements here..."></div>
+          </div>
+
+          <div class="col-12">
+            <label class="form-label" for="inputUrl">Application URL</label>
+            <input type="url" class="form-control" id="inputUrl" placeholder="https://..." required>
+          </div>
+          <div class="col-12 d-flex gap-2">
+            <button type="submit" class="btn btn-primary" id="btnSaveJob">Save Job</button>
+            <a href="/admin/jobs.html" class="btn btn-outline-secondary">Cancel</a>
+          </div>
+          <div class="col-12">
+            <div id="formMsg" class="small"></div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="/admin/assets/js/add-job.js"></script>
+  <script src="/assets/js/cookie-consent.js" defer></script>
+</body>
+</html>
