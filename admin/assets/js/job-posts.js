@@ -6,7 +6,6 @@ import {
   query,
   setDoc,
   updateDoc,
-  where,
 } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 import { db, auth } from '../../../assets/js/jobs.js';
 
@@ -17,16 +16,21 @@ document.addEventListener('DOMContentLoaded', async () => {
   const btnSave = document.getElementById('btnSaveJob');
   const headerSection = document.querySelector('main .border-bottom');
 
-  const jobsState = { all: [], visible: [] };
+  const jobsState = { all: [], visible: [], view: 'active' };
 
-  // Admin UX enhancement: search + stats injected without heavy HTML changes.
   headerSection?.insertAdjacentHTML('beforeend', `
     <div class="admin-jobs-toolbar py-3 w-100">
       <div class="row g-2 align-items-center">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-5">
           <input id="adminJobSearch" class="form-control" type="search" placeholder="Search title, company, location" />
         </div>
-        <div class="col-12 col-md-6 text-md-end">
+        <div class="col-12 col-md-4">
+          <div class="btn-group w-100" role="group" aria-label="View jobs filter">
+            <button class="btn btn-outline-primary active" id="viewActive" type="button">Active jobs</button>
+            <button class="btn btn-outline-secondary" id="viewArchive" type="button">Archives</button>
+          </div>
+        </div>
+        <div class="col-12 col-md-3 text-md-end">
           <span class="badge text-bg-primary me-2" id="statTotal">Total: 0</span>
           <span class="badge text-bg-success" id="statActive">Active: 0</span>
         </div>
@@ -37,10 +41,25 @@ document.addEventListener('DOMContentLoaded', async () => {
   const searchInput = document.getElementById('adminJobSearch');
   const statTotal = document.getElementById('statTotal');
   const statActive = document.getElementById('statActive');
+  const viewActiveBtn = document.getElementById('viewActive');
+  const viewArchiveBtn = document.getElementById('viewArchive');
 
-  searchInput?.addEventListener('input', () => applySearch(searchInput.value));
+  searchInput?.addEventListener('input', () => applyViewAndSearch());
+  viewActiveBtn?.addEventListener('click', () => setView('active'));
+  viewArchiveBtn?.addEventListener('click', () => setView('archive'));
 
   await loadJobs();
+
+  function setView(view) {
+    jobsState.view = view;
+    viewActiveBtn.classList.toggle('active', view === 'active');
+    viewActiveBtn.classList.toggle('btn-outline-primary', view !== 'active');
+    viewActiveBtn.classList.toggle('btn-primary', view === 'active');
+    viewArchiveBtn.classList.toggle('active', view === 'archive');
+    viewArchiveBtn.classList.toggle('btn-outline-secondary', view !== 'archive');
+    viewArchiveBtn.classList.toggle('btn-secondary', view === 'archive');
+    applyViewAndSearch();
+  }
 
   async function loadJobs() {
     loadingDiv.style.display = 'block';
@@ -50,9 +69,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       const snapshot = await getDocs(q);
 
       jobsState.all = snapshot.docs.map((docRef) => normalizeJob(docRef.id, docRef.data()));
-      jobsState.visible = [...jobsState.all];
-      renderRows(jobsState.visible);
       renderStats();
+      applyViewAndSearch();
     } catch (error) {
       console.error('Error fetching jobs in admin:', error);
       jobsTableBody.innerHTML = '<tr><td colspan="8" class="text-danger">Unable to load jobs.</td></tr>';
@@ -70,8 +88,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       jobType: data.jobType || data.workType || '-',
       postedAt: toDate(data.postedAt),
       closingDate: toDate(data.closingDate),
-      description: data.description || '',
-      requirements: data.requirements || '',
       url: data.url || '',
       active: data.active !== false,
     };
@@ -83,41 +99,60 @@ document.addEventListener('DOMContentLoaded', async () => {
     return new Date(value);
   }
 
-  function applySearch(term) {
-    const q = String(term || '').toLowerCase().trim();
-    jobsState.visible = !q
-      ? [...jobsState.all]
-      : jobsState.all.filter((job) => `${job.title} ${job.company} ${job.location}`.toLowerCase().includes(q));
+  function isExpired(job) {
+    if (!job.closingDate) return false;
+    const end = new Date(job.closingDate);
+    end.setHours(23, 59, 59, 999);
+    return end < new Date();
+  }
 
-    renderRows(jobsState.visible);
+  function isArchived(job) {
+    return !job.active || isExpired(job);
+  }
+
+  function applyViewAndSearch() {
+    const searchTerm = String(searchInput?.value || '').toLowerCase().trim();
+
+    let viewList = jobsState.all.filter((job) => (jobsState.view === 'archive' ? isArchived(job) : job.active && !isExpired(job)));
+
+    if (searchTerm) {
+      viewList = viewList.filter((job) => `${job.title} ${job.company} ${job.location}`.toLowerCase().includes(searchTerm));
+    }
+
+    jobsState.visible = viewList;
+    renderRows(viewList);
   }
 
   function renderStats() {
     statTotal.textContent = `Total: ${jobsState.all.length}`;
-    statActive.textContent = `Active: ${jobsState.all.filter((job) => job.active).length}`;
+    statActive.textContent = `Active: ${jobsState.all.filter((job) => job.active && !isExpired(job)).length}`;
   }
 
   function renderRows(jobs) {
     jobsTableBody.innerHTML = '';
 
     if (!jobs.length) {
-      jobsTableBody.innerHTML = '<tr><td colspan="8" class="text-muted">No jobs found.</td></tr>';
+      jobsTableBody.innerHTML = `<tr><td colspan="8" class="text-muted">No ${jobsState.view === 'archive' ? 'archived' : 'active'} jobs found.</td></tr>`;
       return;
     }
 
     jobs.forEach((job) => {
+      const statusBadge = isArchived(job)
+        ? '<span class="badge text-bg-secondary">Archived</span>'
+        : '<span class="badge text-bg-success">Active</span>';
+
       const row = document.createElement('tr');
       row.innerHTML = `
-        <td>${escapeHTML(job.title)}</td>
+        <td><a class="text-decoration-none" href="/details.html?id=${job.id}" target="_blank" rel="noopener noreferrer">${escapeHTML(job.title)}</a></td>
         <td>${escapeHTML(job.company)}</td>
         <td>${escapeHTML(job.location)}</td>
         <td>${escapeHTML(job.jobType)}</td>
         <td>${job.postedAt ? job.postedAt.toLocaleDateString('en-ZA') : '-'}</td>
         <td>${job.closingDate ? job.closingDate.toLocaleDateString('en-ZA') : '-'}</td>
-        <td>${job.active ? '<span class="badge text-bg-success">Yes</span>' : '<span class="badge text-bg-secondary">No</span>'}</td>
+        <td>${statusBadge}</td>
         <td>
           <a class="btn btn-sm btn-primary" href="././edit?id=${job.id}">Edit</a>
-          <button class="btn btn-sm btn-danger delete-job" data-id="${job.id}" data-title="${escapeHTML(job.title)}">Archive</button>
+          ${isArchived(job) ? '' : `<button class="btn btn-sm btn-danger delete-job" data-id="${job.id}" data-title="${escapeHTML(job.title)}">Archive</button>`}
         </td>
       `;
       jobsTableBody.appendChild(row);
@@ -134,8 +169,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
       await updateDoc(doc(db, 'jobs', id), { active: false, deletedAt: new Date() });
       jobsState.all = jobsState.all.map((job) => (job.id === id ? { ...job, active: false } : job));
-      applySearch(searchInput?.value || '');
       renderStats();
+      applyViewAndSearch();
     } catch (error) {
       console.error('Error archiving job:', error);
       alert('Could not archive this job.');

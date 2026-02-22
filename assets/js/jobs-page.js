@@ -16,7 +16,6 @@ const pagination = document.getElementById('pagination');
 const filtersForm = document.getElementById('filtersForm');
 const resetFiltersBtn = document.getElementById('resetFilters');
 const categoryButtons = document.getElementById('categoryButtons');
-const featuredJobsTrack = document.getElementById('featuredJobsTrack');
 
 const state = { jobs: [], filteredJobs: [], currentPage: 1, pageSize: 6 };
 const categoryList = ['technology', 'healthcare', 'education', 'finance', 'operations', 'marketing'];
@@ -53,9 +52,11 @@ async function loadJobsFromFirebase() {
     const q = query(jobsRef, where('active', '==', true), orderBy('postedAt', 'desc'));
     const snapshot = await getDocs(q);
 
-    state.jobs = snapshot.docs.map((docRef) => normalizeJob(docRef.id, docRef.data()));
+    state.jobs = snapshot.docs
+      .map((docRef) => normalizeJob(docRef.id, docRef.data()))
+      .filter((job) => !isExpired(job.closingDate));
+
     applyFilters();
-    renderFeaturedJobs();
   } catch (error) {
     console.error('Error loading jobs from Firebase:', error);
     errorState.classList.remove('d-none');
@@ -71,8 +72,6 @@ async function loadJobsFromFirebase() {
 }
 
 function normalizeJob(id, data) {
-  const postedAt = data.postedAt?.toDate ? data.postedAt.toDate() : new Date(data.postedAt || Date.now());
-
   return {
     id,
     title: data.title || 'Untitled role',
@@ -80,12 +79,25 @@ function normalizeJob(id, data) {
     location: data.location || 'South Africa',
     type: String(data.jobType || data.workType || 'full-time').toLowerCase(),
     industry: String(data.industry || 'general').toLowerCase(),
-    postedAt,
-    description: data.description || 'No description provided.',
+    postedAt: toDate(data.postedAt) || new Date(),
+    closingDate: toDate(data.closingDate),
+    description: data.description || '',
     applyUrl: data.url || `/details.html?id=${encodeURIComponent(id)}`,
     skills: Array.isArray(data.skills) ? data.skills : [],
-    featured: Boolean(data.featured),
   };
+}
+
+function toDate(value) {
+  if (!value) return null;
+  if (value.toDate) return value.toDate();
+  return new Date(value);
+}
+
+function isExpired(closingDate) {
+  if (!closingDate) return false;
+  const end = new Date(closingDate);
+  end.setHours(23, 59, 59, 999);
+  return end < new Date();
 }
 
 function hydrateFiltersFromUrl() {
@@ -108,7 +120,7 @@ function applyFilters() {
   updateUrlFromFilters();
 
   state.filteredJobs = state.jobs.filter((job) => {
-    const text = `${job.title} ${job.company} ${job.description} ${job.skills.join(' ')}`.toLowerCase();
+    const text = `${job.title} ${job.company} ${job.skills.join(' ')}`.toLowerCase();
     const qMatch = !values.q || text.includes(values.q.toLowerCase());
     const locationMatch = !values.location || job.location.toLowerCase().includes(values.location.toLowerCase());
     const typeMatch = !values.type || job.type === values.type.toLowerCase();
@@ -153,12 +165,10 @@ function renderJobs() {
             </div>
             <span class="badge text-bg-primary text-capitalize">${escapeHTML(job.type)}</span>
           </div>
-          <p class="job-meta mb-2">
+          <p class="job-meta mb-3">
             <i class="bi bi-geo-alt"></i> ${escapeHTML(job.location)} &nbsp;•&nbsp;
-            <i class="bi bi-calendar3"></i> Posted ${formatDate(job.postedAt)} &nbsp;•&nbsp;
-            <i class="bi bi-briefcase"></i> ${escapeHTML(job.industry)}
+            <i class="bi bi-calendar3"></i> Posted ${formatDate(job.postedAt)}
           </p>
-          <p class="mb-3">${escapeHTML(job.description)}</p>
           <div class="d-flex gap-2 flex-wrap">
             <a class="btn btn-outline-primary btn-sm" href="/details.html?id=${encodeURIComponent(job.id)}">View details</a>
             <a class="btn btn-primary btn-sm" href="${escapeAttr(job.applyUrl)}" target="_blank" rel="noopener noreferrer">Apply now</a>
@@ -200,24 +210,6 @@ function renderCategoryButtons() {
       applyFilters();
     });
   });
-}
-
-function renderFeaturedJobs() {
-  const featured = state.jobs.filter((job) => job.featured).slice(0, 4);
-  if (!featured.length) {
-    featuredJobsTrack.innerHTML = '<div class="carousel-item active"><div class="featured-placeholder p-4 rounded-4 bg-light text-center">No featured jobs available.</div></div>';
-    return;
-  }
-
-  featuredJobsTrack.innerHTML = featured.map((job, i) => `
-    <div class="carousel-item ${i === 0 ? 'active' : ''}">
-      <article class="p-4 rounded-4 bg-light">
-        <p class="text-uppercase small text-primary mb-1">Featured job</p>
-        <h2 class="h5">${escapeHTML(job.title)}</h2>
-        <p class="text-secondary mb-2">${escapeHTML(job.company)} • ${escapeHTML(job.location)}</p>
-        <a href="${escapeAttr(job.applyUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Apply now</a>
-      </article>
-    </div>`).join('');
 }
 
 function setLoading(on) { loadingSpinner.classList.toggle('d-none', !on); }

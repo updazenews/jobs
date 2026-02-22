@@ -1,43 +1,77 @@
-import {
-    getDoc,
-    doc,
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-import { db } from "../../assets/js/jobs.js";
+import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+import { db } from '/assets/js/jobs.js';
 
-document.addEventListener("DOMContentLoaded", async () => {
-    const jobTitle = document.getElementById('job-title')?.innerText || 'New Job Opportunity';
-    const jobUrl = window.location.href;
-    const params = new URLSearchParams(window.location.search);
-    const titleElement = document.getElementById("title");
-    const subtitleElement = document.getElementById("subtitle");
-    const applyNowButton = document.getElementById("applyNow");
-    const applyNowButton2 = document.getElementById("applyNow2");
-    const descriptionElement = document.getElementById("Description");
-    const requirementsElement = document.getElementById("Requirements");
+document.addEventListener('DOMContentLoaded', async () => {
+  const params = new URLSearchParams(window.location.search);
+  const jobId = params.get('id');
 
-    const jobId = params.get("id");
+  const loading = document.getElementById('detailsLoading');
+  const error = document.getElementById('detailsError');
+  const content = document.getElementById('jobContent');
 
-    const jobDoc = await getDoc(doc(db, "jobs", jobId));
+  if (!jobId) {
+    showError('Invalid job link.');
+    return;
+  }
 
-    if (jobDoc.exists()) {
-        const jobData = jobDoc.data();
-        titleElement.textContent = `${jobData.title} at ${jobData.company}`;
-        subtitleElement.innerHTML = `<i class="bi bi-geo-alt-fill"></i> Location: ${jobData.location} <br/><i class="bi bi-bookmark-check-fill"></i> Type: ${jobData.jobType}  <br\><i class="bi bi-bookmark-check-fill"></i> Work Type: ${jobData.workType}`;
-        descriptionElement.textContent = jobData.description;
-        requirementsElement.textContent = jobData.requirements;
-        applyNowButton.href = `${jobData.url}`;
-        applyNowButton2.href = `${jobData.url}`;
-        document.getElementById('share-facebook').href =
-            `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(jobData.url)}`;
+  try {
+    const snapshot = await getDoc(doc(db, 'jobs', jobId));
 
-        document.getElementById('share-twitter').href =
-            `https://twitter.com/intent/tweet?text=${encodeURIComponent(jobData.title)}&url=${encodeURIComponent(jobData.url)}`;
-
-        document.getElementById('share-linkedin').href =
-            `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(jobData.url)}`;
-
-        document.getElementById('share-whatsapp').href =
-            `https://wa.me/?text=${encodeURIComponent(jobData.title + ' - ' + jobData.url)}`;
-
+    if (!snapshot.exists()) {
+      showError('Job not found.');
+      return;
     }
+
+    const job = snapshot.data();
+    renderJob(job, jobId);
+    loading.classList.add('d-none');
+    content.classList.remove('d-none');
+  } catch (e) {
+    console.error('Failed to load job details:', e);
+    showError('Unable to load this job right now.');
+  }
+
+  function showError(message) {
+    loading.classList.add('d-none');
+    error.textContent = message;
+    error.classList.remove('d-none');
+  }
 });
+
+function renderJob(job, jobId) {
+  const title = job.title || 'Untitled role';
+  const company = job.company || 'Unknown company';
+  const location = job.location || 'South Africa';
+  const jobType = job.jobType || 'N/A';
+  const workType = job.workType || 'N/A';
+  const url = job.url || `/details.html?id=${encodeURIComponent(jobId)}`;
+  const description = job.description || 'No description provided.';
+  const requirements = job.requirements || 'No requirements specified.';
+
+  const closingDate = toDate(job.closingDate);
+  const closingText = closingDate ? closingDate.toLocaleDateString('en-ZA') : 'Not specified';
+
+  document.title = `${title} | Sebenza Portal`;
+  document.getElementById('title').textContent = `${title} at ${company}`;
+  document.getElementById('subtitle').textContent = `${location}`;
+  document.getElementById('jobTypeBadge').textContent = String(jobType);
+  document.getElementById('workTypeBadge').textContent = String(workType);
+  document.getElementById('closingDateBadge').textContent = `Closing: ${closingText}`;
+  document.getElementById('Description').textContent = description;
+  document.getElementById('Requirements').textContent = requirements;
+
+  const applyBtn = document.getElementById('applyNow');
+  applyBtn.href = url;
+
+  const shareUrl = encodeURIComponent(url);
+  document.getElementById('share-facebook').href = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`;
+  document.getElementById('share-twitter').href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${shareUrl}`;
+  document.getElementById('share-linkedin').href = `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`;
+  document.getElementById('share-whatsapp').href = `https://wa.me/?text=${encodeURIComponent(`${title} - ${url}`)}`;
+}
+
+function toDate(value) {
+  if (!value) return null;
+  if (value.toDate) return value.toDate();
+  return new Date(value);
+}
