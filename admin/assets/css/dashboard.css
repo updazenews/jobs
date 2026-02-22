@@ -104,3 +104,20 @@
     min-width: 120px;
   }
 }
+
+.editor-toolbar {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.rich-editor {
+  min-height: 140px;
+  padding: 0.75rem;
+  overflow: auto;
+}
+
+.rich-editor:empty:before {
+  content: attr(data-placeholder);
+  color: #9ca3af;
+}

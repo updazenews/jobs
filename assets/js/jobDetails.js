@@ -57,8 +57,8 @@ function renderJob(job, jobId) {
   document.getElementById('jobTypeBadge').textContent = String(jobType);
   document.getElementById('workTypeBadge').textContent = String(workType);
   document.getElementById('closingDateBadge').textContent = `Closing: ${closingText}`;
-  document.getElementById('Description').textContent = description;
-  document.getElementById('Requirements').textContent = requirements;
+  document.getElementById('Description').innerHTML = sanitizeRichText(description);
+  document.getElementById('Requirements').innerHTML = sanitizeRichText(requirements);
 
   const applyBtn = document.getElementById('applyNow');
   applyBtn.href = url;
@@ -74,4 +74,34 @@ function toDate(value) {
   if (!value) return null;
   if (value.toDate) return value.toDate();
   return new Date(value);
+}
+
+
+function sanitizeRichText(html) {
+  const doc = new DOMParser().parseFromString(String(html || ''), 'text/html');
+  const allowed = new Set(['B', 'STRONG', 'I', 'EM', 'U', 'BR', 'P', 'UL', 'OL', 'LI', 'A']);
+
+  [...doc.body.querySelectorAll('*')].forEach((el) => {
+    if (!allowed.has(el.tagName)) {
+      el.replaceWith(...el.childNodes);
+      return;
+    }
+
+    [...el.attributes].forEach((attr) => {
+      if (el.tagName === 'A' && attr.name === 'href') return;
+      el.removeAttribute(attr.name);
+    });
+
+    if (el.tagName === 'A') {
+      const href = el.getAttribute('href') || '';
+      if (!/^https?:\/\//i.test(href)) {
+        el.replaceWith(...el.childNodes);
+      } else {
+        el.setAttribute('target', '_blank');
+        el.setAttribute('rel', 'noopener noreferrer');
+      }
+    }
+  });
+
+  return doc.body.innerHTML || '';
 }

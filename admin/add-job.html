@@ -50,14 +50,33 @@
               <option value="Hybrid">Hybrid</option>
             </select>
           </div>
+
           <div class="col-12">
-            <label class="form-label" for="inputJobDescription">Job Description</label>
-            <textarea class="form-control" id="inputJobDescription" rows="4" required></textarea>
+            <label class="form-label">Job Description</label>
+            <div class="editor-toolbar mb-2" data-editor-toolbar="descriptionEditor">
+              <button type="button" class="btn btn-sm btn-outline-secondary" data-command="bold"><b>B</b></button>
+              <button type="button" class="btn btn-sm btn-outline-secondary" data-command="italic"><i>I</i></button>
+              <button type="button" class="btn btn-sm btn-outline-secondary" data-command="underline"><u>U</u></button>
+              <button type="button" class="btn btn-sm btn-outline-secondary" data-command="insertUnorderedList">• List</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary" data-command="insertOrderedList">1. List</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary" data-command="createLink">Link</button>
+            </div>
+            <div id="descriptionEditor" class="rich-editor form-control" contenteditable="true" data-placeholder="Write job description here..."></div>
           </div>
+
           <div class="col-12">
-            <label class="form-label" for="inputJobRequirements">Job Requirements</label>
-            <textarea class="form-control" id="inputJobRequirements" rows="4" required></textarea>
+            <label class="form-label">Job Requirements</label>
+            <div class="editor-toolbar mb-2" data-editor-toolbar="requirementsEditor">
+              <button type="button" class="btn btn-sm btn-outline-secondary" data-command="bold"><b>B</b></button>
+              <button type="button" class="btn btn-sm btn-outline-secondary" data-command="italic"><i>I</i></button>
+              <button type="button" class="btn btn-sm btn-outline-secondary" data-command="underline"><u>U</u></button>
+              <button type="button" class="btn btn-sm btn-outline-secondary" data-command="insertUnorderedList">• List</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary" data-command="insertOrderedList">1. List</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary" data-command="createLink">Link</button>
+            </div>
+            <div id="requirementsEditor" class="rich-editor form-control" contenteditable="true" data-placeholder="Write job requirements here..."></div>
           </div>
+
           <div class="col-12">
             <label class="form-label" for="inputUrl">Application URL</label>
             <input type="url" class="form-control" id="inputUrl" placeholder="https://..." required>
