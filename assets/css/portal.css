@@ -1,0 +1,70 @@
+:root {
+  --portal-primary: #0d6efd;
+  --portal-soft: #f4f8ff;
+}
+
+body {
+  background-color: #ffffff;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: auto;
+}
+
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+  z-index: 2000;
+  background: #000;
+  color: #fff;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+}
+
+.hero {
+  background: linear-gradient(140deg, #f8f9ff 0%, #ebf5ff 100%);
+  border-radius: 1rem;
+}
+
+.hero-image {
+  max-height: 300px;
+  object-fit: contain;
+}
+
+.feature-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--portal-soft);
+  color: var(--portal-primary);
+}
+
+.contact-list i {
+  width: 1.2rem;
+  margin-right: 0.35rem;
+}
+
+.job-card {
+  border: 1px solid #e8edf5;
+  border-radius: 0.9rem;
+}
+
+.job-meta {
+  font-size: 0.9rem;
+  color: #606b7a;
+}
+
+.featured-placeholder {
+  min-height: 120px;
+}
+
+@media (max-width: 767px) {
+  .hero {
+    border-radius: 0.75rem;
+  }
+}
